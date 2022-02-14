@@ -4,13 +4,52 @@
     box-sizing: border-box
 }
 
+.card {
+    height: 60vh;
+    width: 60vw;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+    border-radius: 16px;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    margin-top: 50px;
+}
+
 .city {
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+.autocomplete__wrapper {
+    position: relative;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: var(--inputFontSize);
+    border: none;
+    border-radius: 0.4rem;
 }
 
 .autocomplete__list {
     height: auto;
     overflow: auto;
     max-height: 200px;
+    position: absolute;
+    top: calc(100%);
+    /* right: calc(47%); */
+    width: 100%;
+    background-color: #fff;
+    border-radius: 15px 15px 15px 15px / 0px 0px 15px 15px;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+}
+
+.autocomplete__item {
+    display: flex;
+    justify-content: center;
 }

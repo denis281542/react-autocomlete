@@ -136,6 +136,7 @@ function App() {
     filterName = fetchNames.map(name => {
       return(
         <li 
+          className="autocomplete__item"
           key={name.ID}
           onClick={() => {
             setName(name.Name)
@@ -147,8 +148,8 @@ function App() {
   }  
 
   return (
-    <div className="App">
-      <div>
+    <div className="card">
+      <div className="autocomplete__wrapper">
         <label htmlFor="nam">ФИО</label>
         <input 
           id='nam' 
