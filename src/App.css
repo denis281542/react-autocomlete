@@ -3,3 +3,14 @@
     padding: 0;
     box-sizing: border-box
 }
+
+.city {
+    display: flex;
+    flex-direction: column;
+}
+
+.autocomplete__list {
+    height: auto;
+    overflow: auto;
+    max-height: 200px;
+}

@@ -127,6 +127,7 @@ function App() {
   
   const [fetchNames, setFetchNames] = useState([])
   const [cities, setCities] = useState([])
+  const [subject, setSubject] = useState('')
   const [filterCities, setFilterCities] = useState([])
  
 
@@ -155,17 +156,17 @@ function App() {
           placeholder="Введите ФИО" 
           onChange={e => {
             setName(e.target.value)
-            setFetchNames(names.filter(n => (n.Name.substring(0, name.length)).toLowerCase() === name.toLowerCase()))
+            setFetchNames(names.filter(n => n.Name.toLowerCase().includes(e.target.value)))
           }}
-          // onFocus={() => fetchNames}
           value={name}
         /> 
-        <ul>
+        <ul className="autocomplete__list">
           {filterName}
         </ul>      
       </div>
 
-      <div>
+      <div className="city">
+        {subject}
         <label htmlFor="city">Город</label>
         <input 
           id='city' 
@@ -178,7 +179,7 @@ function App() {
           }}
           value={city}
         /> 
-        <ul>
+        <ul className="autocomplete__list">
           {filterCities.map(c => {
             return(
               <li 
@@ -186,8 +187,10 @@ function App() {
                 onClick={() => {
                   setCity(c.name)
                   setFilterCities([])
+                  setSubject(c.subject)
+
                 }}
-              >{c.name}</li>
+              >{c.name} <small>{c.subject}</small></li>
             )
           })}
         </ul>      
