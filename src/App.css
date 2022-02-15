@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,400;1,700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 .card {
@@ -47,9 +50,18 @@ input {
     background-color: #fff;
     border-radius: 15px 15px 15px 15px / 0px 0px 15px 15px;
     box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    z-index: 1;
 }  
 
+.autocomplete__list::-webkit-scrollbar {
+    display: none;
+}
+
 .autocomplete__item {
-    display: flex;
-    justify-content: center;
+    cursor: pointer;
+    transition: background-color .15s
+}
+
+.autocomplete__item:hover {
+    background-color: #ccc;
 }

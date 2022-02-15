@@ -1,5 +1,7 @@
 import './App.css';
 import {useState, useEffect} from 'react'
+import {InputFetch} from './InputFetch'
+import {InputFetchNames} from './InputFetchNames'
 
 function App() {
   const [street, setStreet] = useState('')
@@ -12,14 +14,14 @@ function App() {
   const [flat, setFlat] = useState('')
   const [flats, setFlats] = useState([])
   const [phone, setPhone] = useState('')
-  const [name, setName] = useState('')
+  // const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [clientId, setClientId] = useState(0)
   const [clients, setClients] = useState([])
 
   const user = {
     Id: 0,
-    Name: name,
+    // Name: name,
     Phone: phone,
     Email: email,
     BindId: 0
@@ -111,45 +113,121 @@ function App() {
     )
   })
 
+  // const [names, setNames] = useState([])
+
+  // useEffect(() => {
+  //   fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/russian_names.json?alt=media&token=33f85cec-a3be-4a65-8e98-25be7c9a6d67')
+  //       .then(response => response.json())
+  //       .then(json => setNames(json))
+  // }, [])  
+
+  
+  // const [fetchNames, setFetchNames] = useState([])
+ 
+
+  // let filterName
+  // if(fetchNames.length < 500) {
+  //   filterName = fetchNames.map(name => {
+  //     return(
+  //       <li 
+  //         className="autocomplete__item"
+  //         key={name.ID}
+  //         onClick={() => {
+  //           setName(name.Name)
+  //           setFetchNames([])
+  //         }}
+  //       >{name.Name}</li>
+  //     )
+  //   })
+  // }  
+
+
+
+
+
+
+
   const [names, setNames] = useState([])
-  const [city, setCity] = useState('')
+  const [name, setName] = useState('')
+
 
   useEffect(() => {
     fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/russian_names.json?alt=media&token=33f85cec-a3be-4a65-8e98-25be7c9a6d67')
         .then(response => response.json())
         .then(json => setNames(json))
 
-    fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/cities.json?alt=media&token=452c6222-c43a-4a57-81a3-2bc148b527d2')
-        .then(response => response.json())
-        .then(json => setCities(json))
-  }, [])  
+    document.body.addEventListener('click', closeAutocomplete);
+    document.addEventListener("keydown", escFunction);
 
-  
+    return () => {
+        document.removeEventListener('click', closeAutocomplete);
+        document.removeEventListener("keydown", escFunction);
+      };
+  }, []) 
+
+
   const [fetchNames, setFetchNames] = useState([])
-  const [cities, setCities] = useState([])
-  const [subject, setSubject] = useState('')
-  const [filterCities, setFilterCities] = useState([])
- 
+
+  const closeAutocomplete = e => {
+    if(!e.target.closest('li')) {
+        setFetchNames([])
+    }
+}  
+
+const escFunction = (e) => {
+    if (e.key === "Escape") {
+        setFetchNames([])
+    }
+}
+
+
+
+const onChange = e => {
+    setName(e.target.value)
+    setFetchNames(names.filter(n => n.Name.toLowerCase().includes(e.target.value)))
+}
 
   let filterName
-  if(fetchNames.length < 500) {
-    filterName = fetchNames.map(name => {
-      return(
-        <li 
-          className="autocomplete__item"
-          key={name.ID}
-          onClick={() => {
-            setName(name.Name)
-            setFetchNames([])
-          }}
-        >{name.Name}</li>
-      )
-    })
-  }  
+    if(fetchNames.length < 500) {
+        filterName = fetchNames.map(name => {
+            return(
+                <li 
+                className="autocomplete__item"
+                key={name.ID}
+                onClick={() => {
+                    setName(name.Name)
+                    setFetchNames([])
+                }}
+                >{name.Name}</li>
+            )
+        })
+    }
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="card">
-      <div className="autocomplete__wrapper">
+      <InputFetch />
+      <InputFetchNames
+        label='Имя'
+        htmlFor='name'
+        id='name'
+        text='text'
+        placeholder='Введите ФИО'
+        filterName={filterName}
+        value={name}
+        onChange={onChange}
+      />
+
+      {/* <div className="autocomplete__wrapper">
         <label htmlFor="nam">ФИО</label>
         <input 
           id='nam' 
@@ -164,9 +242,9 @@ function App() {
         <ul className="autocomplete__list">
           {filterName}
         </ul>      
-      </div>
+      </div> */}
 
-      <div className="city">
+      {/* <div className="city">
         {subject}
         <label htmlFor="city">Город</label>
         <input 
@@ -195,7 +273,7 @@ function App() {
             )
           })}
         </ul>      
-      </div>
+      </div> */}
       {/* <div>
         <label htmlFor='street'>Улица</label>
         <input 
