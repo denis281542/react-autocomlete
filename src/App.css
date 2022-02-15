@@ -25,6 +25,11 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    padding: 5px 0 5px 0;
+}
+
+.city label {
+    padding-bottom: 5px;
 }
 
 .autocomplete__wrapper {
@@ -39,17 +44,21 @@ input {
     border-radius: 0.4rem;
 }
 
+input:focus {
+    outline: none;
+}
+
 .autocomplete__list {
     height: auto;
     overflow: auto;
     max-height: 200px;
     position: absolute;
-    top: calc(100%);
+    top: calc(88%);
     /* right: calc(47%); */
     width: 100%;
     background-color: #fff;
-    border-radius: 15px 15px 15px 15px / 0px 0px 15px 15px;
-    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    border-radius: 0.4rem 0.4rem 0.4rem 0.4rem / 0px 0px 0.4rem 0.4rem;
+    box-shadow: rgb(0 0 0 / 35%) 0px 15px 15px;
     z-index: 1;
 }  
 
@@ -59,7 +68,14 @@ input {
 
 .autocomplete__item {
     cursor: pointer;
-    transition: background-color .15s
+    transition: background-color .15s;
+    padding: 5px 5px 5px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.autocomplete__item small {
+    opacity: 0.7;
 }
 
 .autocomplete__item:hover {
