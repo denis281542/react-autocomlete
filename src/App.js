@@ -1,17 +1,14 @@
 import './App.css';
 import {useState, useEffect} from 'react'
 import {InputFetch} from './InputFetch';
-import { useDispatch } from 'react-redux';
-import {fetchCities} from './features/cities/citiesSlice'
+import {InputCities} from './InputCities';
+import {InputNames} from './InputNames';
 
 
 
 function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    // if (postStatus === 'idle') {
-      dispatch(fetchCities())
-  }, [])
+
+
   // const [street, setStreet] = useState('')
   // const [streets, setStreets] = useState([])
   // const [id, setId] = useState('')
@@ -134,19 +131,11 @@ function App() {
 const [names, setNames] = useState([])
 const [name, setName] = useState('')
 const [fetchNames, setFetchNames] = useState([])
-const [filterCities, setFilterCities] = useState([])
-const [city, setCity] = useState('')
-const [subject, setSubject] = useState('')
-const [cities, setCities] = useState([])
 
 useEffect(() => {
   fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/russian_names.json?alt=media&token=33f85cec-a3be-4a65-8e98-25be7c9a6d67')
     .then(response => response.json())
     .then(json => setNames(json))
-
-  fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/cities.json?alt=media&token=452c6222-c43a-4a57-81a3-2bc148b527d2')
-    .then(response => response.json())
-    .then(json => setCities(json))
 
   document.body.addEventListener('click', closeAutocomplete);
   document.addEventListener("keydown", escFunction);
@@ -160,16 +149,16 @@ useEffect(() => {
 const closeAutocomplete = e => {
   if(!e.target.closest('li')) {
       setFetchNames([])
-      setFilterCities([])
   }
 }  
 
 const escFunction = (e) => {
   if (e.key === "Escape") {
     setFetchNames([])
-    setFilterCities([])
   }
 }
+
+
 
 let filteredList
   if(fetchNames.length < 500) {
@@ -187,42 +176,15 @@ let filteredList
     })
   }
 
-  const filterCity = filterCities.map(c => {
-    return(
-      <li 
-      className="autocomplete__item"
-      key={c.coords.lat + c.coords.lon}
-      onClick={() => {
-          setCity(c.name)
-          setFilterCities([])
-          setSubject(c.subject)
-      }}
-      >{c.name} <small>{c.subject}</small></li>
-    )
-  })
-
   const onChange = e => {
     setName(e.target.value)
     setFetchNames(names.filter(n => n.Name.toLowerCase().includes(e.target.value)))
   }
 
-  const onChangeCity = e => {
-    setCity(e.target.value)
-    setFilterCities(cities.filter(c => c.name.toLowerCase().includes(e.target.value)))
-  }
-
   return (
     <div className="card">
-      <InputFetch
-        label='Город'
-        htmlFor='city'
-        id='city'
-        text='text'
-        placeholder='Введите город'
-        filteredList={filterCity}
-        value={city}
-        onChange={onChangeCity}
-      />
+      <InputCities />     
+      <InputNames />     
 
       <InputFetch
         label='Имя'
