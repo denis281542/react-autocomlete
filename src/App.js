@@ -1,8 +1,17 @@
 import './App.css';
 import {useState, useEffect} from 'react'
-import {InputFetch} from './InputFetch'
+import {InputFetch} from './InputFetch';
+import { useDispatch } from 'react-redux';
+import {fetchCities} from './features/cities/citiesSlice'
+
+
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    // if (postStatus === 'idle') {
+      dispatch(fetchCities())
+  }, [])
   // const [street, setStreet] = useState('')
   // const [streets, setStreets] = useState([])
   // const [id, setId] = useState('')
