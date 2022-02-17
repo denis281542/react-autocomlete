@@ -186,7 +186,7 @@ let filteredList
       <InputCities />     
       <InputNames />     
 
-      <InputFetch
+      {/* <InputFetch
         label='Имя'
         htmlFor='name'
         id='name'
@@ -195,7 +195,7 @@ let filteredList
         filteredList={filteredList}
         value={name}
         onChange={onChange}
-      />
+      /> */}
 
       {/* <div>
         <label htmlFor='street'>Улица</label>
