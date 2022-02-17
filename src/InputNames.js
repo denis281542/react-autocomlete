@@ -7,10 +7,25 @@ export const InputNames = () => {
     const dispatch = useDispatch()
     const names = useSelector(selectAllNames)
     const [name, setName] = useState('')
+    const [namesFiltered, setNamesFiltered] = useState('')
+let a,b
+    if(names.filter(n => n.Name.toLowerCase().includes(name)).length < 500) {
+        a = names.filter(n => n.Name.toLowerCase().includes(name))
+        b = a.map(name => {
+            return(
+                <li 
+                    className="autocomplete__item"
+                    key={name.ID}
+                    // onClick={() => {
+                    //     setName(name.Name)
+                    //     setFetchNames([])
+                    // }}
+                >{name.Name}</li>
+            )
+        })
+    }
 
-    names.filter(n => n.Name.toLowerCase().includes(name))
-
-
+    console.log(b);
 
     const namesStatus = useSelector(state => state.names.status)
 
@@ -20,20 +35,21 @@ export const InputNames = () => {
         }
     }, [namesStatus, dispatch])
     
+    
     return(
         <div className="city">
-            {subject || ''}
-            <label htmlFor={htmlFor}>{label}</label>
+            {/* {subject || ''} */}
+            <label htmlFor='name'>Имя</label>
             <input 
-            id={id} 
-            type={text}
-            placeholder={placeholder} 
-            onChange={onChange}
-            value={value}
+            id='name' 
+            type='text'
+            placeholder='Введите имя'
+            onChange={e => setName(e.target.value)}
+            value={name}
             autoComplete="off"
             /> 
             <ul className="autocomplete__list">
-                {filteredList}
+                {b}
             </ul>      
         </div>
     )

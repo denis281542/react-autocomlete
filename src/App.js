@@ -187,7 +187,7 @@ let filteredList
       <InputNames />     
 
       {/* <InputFetch
-        label='Имя'
+`        label='Имя'
         htmlFor='name'
         id='name'
         text='text'
