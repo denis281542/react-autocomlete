@@ -8,7 +8,7 @@ const initialState = {
 
 
 export const fetchCities = createAsyncThunk('cities/fetchCities', async () => {
-    const res = await fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/cities.json?alt=media&token=452c6222-c43a-4a57-81a3-2bc148b527d2')
+    const res = await fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/cities.json?alt=media&token=7c779e23-9863-49ac-80e6-aa7d06651162')
     return await res.json()
 })
 

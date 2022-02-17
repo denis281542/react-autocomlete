@@ -5,7 +5,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch})
     const dispatch = useDispatch()
     const names = useSelector(selectAll)
     const [name, setName] = useState('')
-console.log(names);
+
     const namesStatus = useSelector(state => state.names.status)
 
     

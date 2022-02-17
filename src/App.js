@@ -3,11 +3,22 @@ import {useState, useEffect} from 'react'
 import {InputCities} from './InputCities';
 import {InputNames} from './InputNames';
 import { Input } from './Input';
+import config from './rename.json'
 import { fetchNames, selectAllNames } from "./features/names/namesSlice"; 
 import {fetchCities, selectAllCities} from './features/cities/citiesSlice'
 
 
 function App() {
+  // let arr= []
+  // config.map((i, idx) => {
+  //   arr.push({...i, id: idx + 1})
+  // })
+  // console.log(arr);
+  // var blob = new Blob([JSON.stringify(arr)], {type: "text/javascript"});
+  // var link = document.createElement("a");
+  // link.setAttribute("href", URL.createObjectURL(blob));
+  // link.setAttribute("download", "my-array.js");
+  // link.click();
 
 
   // const [street, setStreet] = useState('')
