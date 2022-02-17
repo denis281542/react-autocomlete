@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export const fetchNames = createAsyncThunk('names/fetchNames', async () => {
-    const res = await fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/russian_names.json?alt=media&token=33f85cec-a3be-4a65-8e98-25be7c9a6d67')
+    const res = await fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/russian_names.json?alt=media&token=2e27c0ab-3cc4-444e-aa07-bec6516d7af4')
     return await res.json()
 })
 

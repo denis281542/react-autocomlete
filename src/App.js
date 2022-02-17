@@ -1,9 +1,10 @@
 import './App.css';
 import {useState, useEffect} from 'react'
-import {InputFetch} from './InputFetch';
 import {InputCities} from './InputCities';
 import {InputNames} from './InputNames';
-
+import { Input } from './Input';
+import { fetchNames, selectAllNames } from "./features/names/namesSlice"; 
+import {fetchCities, selectAllCities} from './features/cities/citiesSlice'
 
 
 function App() {
@@ -128,74 +129,29 @@ function App() {
 
 
 
-const [names, setNames] = useState([])
-const [name, setName] = useState('')
-const [fetchNames, setFetchNames] = useState([])
 
-useEffect(() => {
-  fetch('https://firebasestorage.googleapis.com/v0/b/megalandpark.appspot.com/o/russian_names.json?alt=media&token=33f85cec-a3be-4a65-8e98-25be7c9a6d67')
-    .then(response => response.json())
-    .then(json => setNames(json))
-
-  document.body.addEventListener('click', closeAutocomplete);
-  document.addEventListener("keydown", escFunction);
-
-  return () => {
-    document.removeEventListener('click', closeAutocomplete);
-    document.removeEventListener("keydown", escFunction);
-  };
-}, []) 
-
-const closeAutocomplete = e => {
-  if(!e.target.closest('li')) {
-      setFetchNames([])
-  }
-}  
-
-const escFunction = (e) => {
-  if (e.key === "Escape") {
-    setFetchNames([])
-  }
-}
-
-
-
-let filteredList
-  if(fetchNames.length < 500) {
-    filteredList = fetchNames.map(name => {
-      return(
-        <li 
-        className="autocomplete__item"
-        key={name.ID}
-        onClick={() => {
-            setName(name.Name)
-            setFetchNames([])
-        }}
-        >{name.Name}</li>
-      )
-    })
-  }
-
-  const onChange = e => {
-    setName(e.target.value)
-    setFetchNames(names.filter(n => n.Name.toLowerCase().includes(e.target.value)))
-  }
 
   return (
     <div className="card">
-      <InputCities />     
-      <InputNames />     
+      <Input 
+        htmlFor='city'
+        label='Город'
+        id='city'
+        type='text'
+        placeholder='Введите город'
+        selectAll={selectAllCities}
+        fetch={fetchCities}        
+      /> 
 
-      {/* <InputFetch
-`        label='Имя'
+      <Input 
         htmlFor='name'
+        label='Имя'
         id='name'
-        text='text'
+        type='text'
         placeholder='Введите имя'
-        filteredList={filteredList}
-        value={name}
-        onChange={onChange}
-      /> */}
+        selectAll={selectAllNames}
+        fetch={fetchNames}        
+      />     
 
       {/* <div>
         <label htmlFor='street'>Улица</label>

@@ -1,20 +1,19 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { fetchNames, selectAllNames } from "./features/names/namesSlice"; 
 
-export const InputNames = () => {
+export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch}) => {
     const dispatch = useDispatch()
-    const names = useSelector(selectAllNames)
+    const names = useSelector(selectAll)
     const [name, setName] = useState('')
-
+console.log(names);
     const namesStatus = useSelector(state => state.names.status)
 
+    
     useEffect(() => {
         if(namesStatus === 'idle') {
-            dispatch(fetchNames())
+            dispatch(fetch())
         }
     }, [namesStatus, dispatch])
-  
 
     if(names.filter(n => n.name.toLowerCase().includes(name)).length < 500) {
         var namesFiltered = names.filter(n => n.name.toLowerCase().includes(name)).map(name => {
@@ -28,15 +27,15 @@ export const InputNames = () => {
                 >{name.name}</li>
             )
         })
-    }    
-    
+    }  
+
     return(
         <div className="city">
-            <label htmlFor='name'>Имя</label>
+            <label htmlFor={htmlFor}>{label}</label>
             <input 
-            id='name' 
-            type='text'
-            placeholder='Введите имя'
+            id={id} 
+            type={type}
+            placeholder={placeholder}
             onChange={e => setName(e.target.value)}
             value={name}
             autoComplete="off"

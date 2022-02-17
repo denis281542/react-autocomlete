@@ -9,24 +9,24 @@ export const InputCities = () => {
     const [subject, setSubject] = useState('')
     const [city, setCity] = useState('')
 
-    const userStatus = useSelector(state => state.cities.status)
+    const cityStatus = useSelector(state => state.cities.status)
 
     useEffect(() => {
-        if (userStatus === 'idle') {
+        if (cityStatus === 'idle') {
             dispatch(fetchCities())
         }
-    }, [userStatus, dispatch])
+    }, [cityStatus, dispatch])
 
-    const filterCity = cities.filter(c => c.name.toLowerCase().includes(city)).map(i => {
+    const filterCity = cities.filter(c => c.name.toLowerCase().includes(city)).map(city => {
         return(
           <li 
             className="autocomplete__item"
-            key={i.coords.lat + i.coords.lon}
+            key={city.coords.lat + city.coords.lon}
             onClick={() => {
-                setCity(i.name)
-                setSubject(i.subject)
+                setCity(city.name)
+                setSubject(city.subject)
             }}
-          >{i.name} <small>{i.subject}</small></li>
+          >{city.name} <small>{city.subject}</small></li>
         )
     })
 
