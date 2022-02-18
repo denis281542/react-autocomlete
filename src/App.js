@@ -1,4 +1,5 @@
 import './App.css';
+import { InputStreet } from './features/street/InputStreet';
 import { InputsAutomplete } from './features/autocomplete/InputsAutomplete';
 
 function App() {
@@ -126,6 +127,7 @@ function App() {
   return (
     <div>
        <InputsAutomplete />
+       {/* <InputStreet /> */}
 
       {/* <div>
         <label htmlFor='street'>Улица</label>

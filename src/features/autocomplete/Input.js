@@ -1,14 +1,17 @@
 import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
+import { getId } from '../houses/housesSlice';
+// import { selectAllHouse } from '../houses/housesSlice';
 
-export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch}) => {
+export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, selectStatus}) => {
     const dispatch = useDispatch()
     const names = useSelector(selectAll)
     const [name, setName] = useState('')
     const [subject, setSubject] = useState('')
+    const [selectId, setSelectId] = useState(0)
 
-    const status = useSelector(state => state.names.status)
-    
+    const status = useSelector(selectStatus)
+    console.log(names);
     useEffect(() => {
         if(status === 'idle') {
             dispatch(fetch())
@@ -23,6 +26,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch})
                     key={name.id}
                     onClick={() => {
                         setName(name.name)
+                        // dispatch(getId(name.id))
                         setSubject(name.subject)
                     }}
                 >{name.name}<small>{name.subject}</small></li>
