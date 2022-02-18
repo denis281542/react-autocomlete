@@ -5,15 +5,15 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch})
     const dispatch = useDispatch()
     const names = useSelector(selectAll)
     const [name, setName] = useState('')
+    const [subject, setSubject] = useState('')
 
-    const namesStatus = useSelector(state => state.names.status)
-
+    const status = useSelector(state => state.names.status)
     
     useEffect(() => {
-        if(namesStatus === 'idle') {
+        if(status === 'idle') {
             dispatch(fetch())
         }
-    }, [namesStatus, dispatch])
+    }, [status, dispatch])
 
     if(names.filter(n => n.name.toLowerCase().includes(name)).length < 500) {
         var namesFiltered = names.filter(n => n.name.toLowerCase().includes(name)).map(name => {
@@ -23,22 +23,24 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch})
                     key={name.id}
                     onClick={() => {
                         setName(name.name)
+                        setSubject(name.subject)
                     }}
-                >{name.name}</li>
+                >{name.name}<small>{name.subject}</small></li>
             )
         })
     }  
 
     return(
         <div className="city">
+            {subject || ''}
             <label htmlFor={htmlFor}>{label}</label>
             <input 
-            id={id} 
-            type={type}
-            placeholder={placeholder}
-            onChange={e => setName(e.target.value)}
-            value={name}
-            autoComplete="off"
+                id={id} 
+                type={type}
+                placeholder={placeholder}
+                onChange={e => setName(e.target.value)}
+                value={name}
+                autoComplete="off"
             /> 
             <ul className="autocomplete__list">
                 {namesFiltered}

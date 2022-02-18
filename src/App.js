@@ -1,26 +1,7 @@
 import './App.css';
-import {useState, useEffect} from 'react'
-import {InputCities} from './InputCities';
-import {InputNames} from './InputNames';
-import { Input } from './Input';
-import config from './rename.json'
-import { fetchNames, selectAllNames } from "./features/names/namesSlice"; 
-import {fetchCities, selectAllCities} from './features/cities/citiesSlice'
-
+import { InputsAutomplete } from './features/autocomplete/InputsAutomplete';
 
 function App() {
-  // let arr= []
-  // config.map((i, idx) => {
-  //   arr.push({...i, id: idx + 1})
-  // })
-  // console.log(arr);
-  // var blob = new Blob([JSON.stringify(arr)], {type: "text/javascript"});
-  // var link = document.createElement("a");
-  // link.setAttribute("href", URL.createObjectURL(blob));
-  // link.setAttribute("download", "my-array.js");
-  // link.click();
-
-
   // const [street, setStreet] = useState('')
   // const [streets, setStreets] = useState([])
   // const [id, setId] = useState('')
@@ -143,26 +124,8 @@ function App() {
 
 
   return (
-    <div className="card">
-      <Input 
-        htmlFor='city'
-        label='Город'
-        id='city'
-        type='text'
-        placeholder='Введите город'
-        selectAll={selectAllCities}
-        fetch={fetchCities}        
-      /> 
-
-      <Input 
-        htmlFor='name'
-        label='Имя'
-        id='name'
-        type='text'
-        placeholder='Введите имя'
-        selectAll={selectAllNames}
-        fetch={fetchNames}        
-      />     
+    <div>
+       <InputsAutomplete />
 
       {/* <div>
         <label htmlFor='street'>Улица</label>
