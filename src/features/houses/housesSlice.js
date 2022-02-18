@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
     houses: [],
-    // id: null,
+    id: null,
     status: 'idle',
     error: null
 }
@@ -15,7 +15,11 @@ export const fetchHouses = createAsyncThunk('house/fetchHouses', async() => {
 const houseSlice = createSlice({
     name: 'houses',
     initialState,
-    reducers: {},
+    reducers: {
+      getId(state, action) {
+        state.id = action.payload
+      }
+    },
     extraReducers(builder) {
         builder
           .addCase(fetchHouses.pending, (state, action) => {

@@ -34,4 +34,3 @@ const streetsSlice = createSlice({
 export default streetsSlice.reducer
 export const selectAllStreet = state => state.streets.streets
 export const selectStatusStreets = state => state.streets.status
-export const selectStreetById = (state, streetId) => state.streets.find(street => street.id === streetId)

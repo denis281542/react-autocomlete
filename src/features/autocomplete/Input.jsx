@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { selectStreetById } from '../street/streetsSlice';
+import { getId } from '../houses/housesSlice';
 
 export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, selectStatus}) => {
     const dispatch = useDispatch()
@@ -9,7 +9,6 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
     const [subject, setSubject] = useState('')
 
     const status = useSelector(selectStatus)
-    // const street = useSelector(state => selectStreetById(state, streetId))
 
     useEffect(() => {
         if(status === 'idle') {
@@ -26,6 +25,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                     onClick={() => {
                         setName(name.name)
                         setSubject(name.subject)
+                        dispatch(getId(name.id))
                     }}
                 >{name.name}<small>{name.subject}</small></li>
             )
