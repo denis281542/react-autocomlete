@@ -6,7 +6,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
     const dispatch = useDispatch()
     const names = useSelector(selectAll)
     const [name, setName] = useState('')
-    const [subject, setSubject] = useState('') 
+    const [subject, setSubject] = useState('')
 
     const status = useSelector(selectStatus)
     const street = useSelector(state => selectStreetById(state, streetId))
