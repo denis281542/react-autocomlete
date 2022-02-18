@@ -9,7 +9,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
     const [subject, setSubject] = useState('')
 
     const status = useSelector(selectStatus)
-    const street = useSelector(state => selectStreetById(state, streetId))
+    // const street = useSelector(state => selectStreetById(state, streetId))
 
     useEffect(() => {
         if(status === 'idle') {
