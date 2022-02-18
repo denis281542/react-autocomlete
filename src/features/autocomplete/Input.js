@@ -14,7 +14,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
     useEffect(() => {
         if(status === 'idle') {
             dispatch(fetch())
-        }
+        } 
     }, [status, dispatch])
 
     if(names.filter(n => n.name.toLowerCase().includes(name)).length < 500) {
