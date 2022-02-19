@@ -28,6 +28,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                         setName(name.name)
                         setSubject(name.subject)
                         dispatch(fetchNext(name.id))
+                        console.log(name.id);
                     }}
                 >{name.name}<small>{name.subject}</small></li>
             )
