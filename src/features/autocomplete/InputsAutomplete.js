@@ -6,7 +6,7 @@ import { fetchStreets, selectAllStreet, selectStatusStreets } from '../street/st
 import { fetchHouses, selectAllHouse, selectStatusHouses } from '../houses/housesSlice';
 
 export const InputsAutomplete = () => { 
-    // console.log(selectAllHouse);
+    console.log(selectAllHouse);
     return (
         <div className="card">
             {/* <Input 
@@ -37,6 +37,7 @@ export const InputsAutomplete = () => {
                 selectAll={selectAllStreet}
                 selectStatus={selectStatusStreets}
                 fetch={fetchStreets}        
+                fetchNext={fetchHouses}        
             /> 
             <Input 
                 htmlFor='house'

@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { getId } from '../houses/housesSlice';
+import { fetchHouses, clearHouses } from '../houses/housesSlice';
+// import {  } from '../street/streetsSlice';
 
-export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, selectStatus}) => {
+export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, fetchNext,  selectStatus}) => {
     const dispatch = useDispatch()
     const names = useSelector(selectAll)
+    
     const [name, setName] = useState('')
     const [subject, setSubject] = useState('')
 
@@ -25,7 +27,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                     onClick={() => {
                         setName(name.name)
                         setSubject(name.subject)
-                        dispatch(getId(name.id))
+                        dispatch(fetchNext(name.id))
                     }}
                 >{name.name}<small>{name.subject}</small></li>
             )
@@ -40,7 +42,10 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                 id={id} 
                 type={type}
                 placeholder={placeholder}
-                onChange={e => setName(e.target.value)}
+                onChange={e => {
+                    setName(e.target.value)
+                    if(e.target.value.length < name.length) dispatch(clearHouses())
+                }}
                 value={name}
                 autoComplete="off"
             /> 
