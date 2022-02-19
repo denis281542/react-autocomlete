@@ -63,7 +63,7 @@ export const InputsAutomplete = () => {
                 selectStatus={selectStatusFlats}
                 fetch={fetchFlats}  
                 fetchNext={fetchFlats}       
-            />
+            /> 
             {/* <Input 
                 htmlFor='house'
                 label='Дом'
