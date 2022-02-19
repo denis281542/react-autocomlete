@@ -47,7 +47,8 @@ export const InputsAutomplete = () => {
                 placeholder='Введите дом'
                 selectAll={selectAllHouse}
                 selectStatus={selectStatusHouses}
-                fetch={fetchHouses}        
+                fetch={fetchHouses}  
+                fetchNext={fetchHouses}       
             /> 
             {/* <Input 
                 htmlFor='house'

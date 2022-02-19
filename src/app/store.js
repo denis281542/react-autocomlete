@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import citiesReducer from '../features/cities/citiesSlice';
-import namesReducer from '../features/names/namesSlice';
+// import citiesReducer from '../features/cities/citiesSlice';
+// import namesReducer from '../features/names/namesSlice';
 import streetsReducer from '../features/street/streetsSlice';
 import housesReducer from '../features/houses/housesSlice';
+import flatsReducer from '../features/flats/flatsSlice';
 
 export default configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
         // names: namesReducer,
         streets: streetsReducer,
         houses: housesReducer,
+        flats: flatsReducer,
     }
 })

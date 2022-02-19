@@ -5,7 +5,7 @@ const initialState = {
     status: null,
     error: null
 }
-// let selectIdInput = 134
+
 export const fetchHouses = createAsyncThunk('house/fetchHouses', async (id) => {
   const res = await fetch(`https://dispex.org/api/vtest/Request/houses/${id}`)
   return await res.json()
