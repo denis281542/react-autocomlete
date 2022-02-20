@@ -3,8 +3,8 @@ import { Input } from './Input';
 // import { fetchNames, selectAllNames } from "../names/namesSlice"; 
 // import {fetchCities, selectAllCities} from '../cities/citiesSlice';
 import { fetchStreets, selectAllStreet, selectStatusStreets } from '../street/streetsSlice';
-import { fetchHouses, selectAllHouse, selectStatusHouses } from '../houses/housesSlice';
-import { fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';
+import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '../houses/housesSlice';
+import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';
 
 export const InputsAutomplete = () => { 
     console.log(selectAllHouse);
@@ -38,7 +38,9 @@ export const InputsAutomplete = () => {
                 selectAll={selectAllStreet}
                 selectStatus={selectStatusStreets}
                 fetch={fetchStreets}        
-                fetchNext={fetchHouses}        
+                fetchNext={fetchHouses}
+                clearHouse={clearHouses}        
+                clearFlat={clearFlats}        
             /> 
 
             <Input 
@@ -50,7 +52,8 @@ export const InputsAutomplete = () => {
                 selectAll={selectAllHouse}
                 selectStatus={selectStatusHouses}
                 fetch={fetchHouses}  
-                fetchNext={fetchFlats}       
+                fetchNext={fetchFlats}  
+                clearFlat={clearFlats}     
             />
 
             <Input 
@@ -62,7 +65,7 @@ export const InputsAutomplete = () => {
                 selectAll={selectAllFlats}
                 selectStatus={selectStatusFlats}
                 fetch={fetchFlats}  
-                fetchNext={fetchFlats}       
+                fetchNext={fetchFlats} 
             /> 
             {/* <Input 
                 htmlFor='house'
