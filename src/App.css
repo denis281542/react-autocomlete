@@ -81,7 +81,3 @@ input:focus {
 .autocomplete__item:hover {
     background-color: #ccc;
 }
-
-.hide {
-    display: none;
-}
