@@ -65,7 +65,6 @@ export const InputsAutomplete = () => {
                 selectAll={selectAllFlats}
                 selectStatus={selectStatusFlats}
                 fetch={fetchFlats}  
-                fetchNext={fetchFlats} 
             /> 
             {/* <Input 
                 htmlFor='house'

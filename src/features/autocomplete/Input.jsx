@@ -33,7 +33,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                         setName(name.name)
                         setActive(false)
                         // setSubject(name.subject)
-                        dispatch(fetchNext(name.id))
+                        if(fetchNext) dispatch(fetchNext(name.id))
                     }}
                 >{name.name}</li>
             )
