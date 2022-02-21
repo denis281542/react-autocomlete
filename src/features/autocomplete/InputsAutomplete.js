@@ -1,5 +1,6 @@
 import '../../App.css';
 import { Input } from './Input';
+import { ModalWindow } from '../modal/Modal';
 // import { fetchNames, selectAllNames } from "../names/namesSlice"; 
 // import {fetchCities, selectAllCities} from '../cities/citiesSlice';
 import { fetchStreets, selectAllStreet, selectStatusStreets } from '../street/streetsSlice';
@@ -7,7 +8,6 @@ import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '..
 import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';
 
 export const InputsAutomplete = () => { 
-    console.log(selectAllHouse);
     return (
         <div className="card">
             {/* <Input 
@@ -66,6 +66,8 @@ export const InputsAutomplete = () => {
                 selectStatus={selectStatusFlats}
                 fetch={fetchFlats}  
             /> 
+            <ModalWindow />
+
             {/* <Input 
                 htmlFor='house'
                 label='Дом'

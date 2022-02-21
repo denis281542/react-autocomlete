@@ -4,6 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import streetsReducer from '../features/street/streetsSlice';
 import housesReducer from '../features/houses/housesSlice';
 import flatsReducer from '../features/flats/flatsSlice';
+import userReducer from '../features/user/userSlice';
 
 export default configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
         streets: streetsReducer,
         houses: housesReducer,
         flats: flatsReducer,
+        user: userReducer,
     }
 })

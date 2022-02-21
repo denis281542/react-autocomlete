@@ -40,7 +40,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
         })
     }
 
-    const clearInput = (e) => {
+    const clearNextInput = (e) => {
         if(e.target.value.length < name.length) {
             if(clearHouse) dispatch(clearHouse())
             if(clearFlat) dispatch(clearFlat())
@@ -48,7 +48,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
     }
     
     const onChange = e => {
-        clearInput(e)
+        clearNextInput(e)
         setName(e.target.value)
     }
 
@@ -65,9 +65,12 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                 autoComplete="off"
                 onFocus={() => setActive(true)}
             /> 
-            <ul className={active ? "autocomplete__list" : "hide"}>
-                {namesFiltered}
-            </ul>      
+
+            {/* <div className={active ? "wrapper" : ""}> */}
+                <ul className={active ? "autocomplete__list" : "hide"}>
+                    {namesFiltered}
+                </ul>      
+            {/* </div>       */}
         </div>
     )
 }
