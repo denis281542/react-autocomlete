@@ -67,7 +67,7 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
             /> 
             <ul className={active ? "autocomplete__list" : "hide"}>
                 {namesFiltered}
-            </ul>      
+            </ul>       
         </div>
     )
 }
