@@ -1,13 +1,13 @@
 import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-// import {  } from '../street/streetsSlice';
+import { getAddress } from '../address/addressSlice';
 
-export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, fetchNext, clearHouse, clearFlat, selectStatus}) => {
+
+export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, fetchNext, clearHouse, clearFlat, selectStatus, getAddressId}) => {
     const dispatch = useDispatch()
     const names = useSelector(selectAll)
     const [name, setName] = useState('')
     const [active, setActive] = useState(false)
-    // const [subject, setSubject] = useState('')
 
     const status = useSelector(selectStatus)   
     
@@ -32,8 +32,8 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                     onClick={() => {
                         setName(name.name)
                         setActive(false)
-                        // setSubject(name.subject)
                         dispatch(fetchNext(name.id))
+                        if(getAddressId) dispatch(getAddressId(name.id));
                     }}
                 >{name.name}</li>
             )

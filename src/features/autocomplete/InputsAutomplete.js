@@ -1,15 +1,12 @@
 import '../../App.css';
 import { Input } from './Input';
 import { ModalWindow } from '../modal/ModalWindow'
-// import { fetchNames, selectAllNames } from "../names/namesSlice"; 
-// import {fetchCities, selectAllCities} from '../cities/citiesSlice';
-import { fetchStreets, selectAllStreet, selectStatusStreets } from '../street/streetsSlice';
+import { fetchStreets, selectAllStreet, selectStatusStreets, getStreet } from '../street/streetsSlice';
 import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '../houses/housesSlice';
 import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';
-import { TextField } from '@mui/material';
+import { getAddressId } from '../address/addressSlice';
 
 export const InputsAutomplete = () => { 
-    console.log(selectAllHouse);
     return (
         <div className="card">
             <Input 
@@ -49,7 +46,10 @@ export const InputsAutomplete = () => {
                 selectStatus={selectStatusFlats}
                 fetch={fetchFlats}  
                 fetchNext={fetchFlats} 
+                getAddressId={getAddressId} 
             /> 
+
+
             
             <ModalWindow />
 

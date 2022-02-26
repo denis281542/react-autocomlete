@@ -4,6 +4,7 @@ const initialState = {
     streets: [],
     status: 'idle',
     error: null,
+    street: null
 }
 
 export const fetchStreets = createAsyncThunk('streets/fetchStreets', async () => {
@@ -18,6 +19,9 @@ const streetsSlice = createSlice({
         clearStreets(state) {
             state.streets = []
             state.status = 'idle'
+        },
+        getStreet(state, action) {
+            return { ...state.street = action.payload }
         }
     },
     extraReducers(builder) {
@@ -36,7 +40,7 @@ const streetsSlice = createSlice({
     }
 })
 
-export const { clearStreets } = streetsSlice.actions
+export const { clearStreets, getStreet } = streetsSlice.actions
 
 export default streetsSlice.reducer
 export const selectAllStreet = state => state.streets.streets
