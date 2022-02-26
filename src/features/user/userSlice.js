@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -42,4 +43,20 @@ export const userSlice = createSlice({
 })
 
 export const { userAdded } = userSlice.actions
+=======
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = {
+    name: null,
+    phone: null,
+    email: null,
+}
+
+const userSlice = createSlice({
+    name: 'user',
+    initialState,
+    reducers: {}
+})
+
+>>>>>>> 72b1d7b03ef42857596cf69c677b514efe4beb43
 export default userSlice.reducer
