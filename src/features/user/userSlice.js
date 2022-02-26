@@ -3,7 +3,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
     phone: null,
     name: null,
-    email: null
+    email: null,
+    id: null
 }
 
 export const postUser = createAsyncThunk('user/postUser',
@@ -18,9 +19,9 @@ export const postUser = createAsyncThunk('user/postUser',
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer', 
-            body: JSON.stringify(user) 
+            body: JSON.stringify(user)
         });
-        return response
+        return await response.json()
     }
   )
 
@@ -34,9 +35,7 @@ export const userSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(postUser.fulfilled, (state, action) => {
-            console.log(state);
-            console.log(action.payload);
-          return {...state = action.payload}
+          state.id = action.payload.id
         })
     }
 })

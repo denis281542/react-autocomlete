@@ -42,13 +42,13 @@ export const ModalWindow = () => {
 
   const saveUser = async () => {
     dispatch(userAdded({ phone, name, email }))
+
     await  dispatch(postUser({ 
-      Id: 0,
       Name: name,
       Phone: phone, 
       Email: email,
-      BindId: 0
     })).unwrap()
+
     setName('')
     setEmail('')
     setPhone('')
