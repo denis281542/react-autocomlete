@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useDispatch } from 'react-redux';
-import { postUser, userAdded } from '../user/userSlice';
+import { postUser, userAdded } from '../users/userSlice';
 
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -42,13 +42,13 @@ export const ModalWindow = () => {
 
   const saveUser = async () => {
     dispatch(userAdded({ phone, name, email }))
+
     await  dispatch(postUser({ 
-      Id: 0,
       Name: name,
       Phone: phone, 
       Email: email,
-      BindId: 0
     })).unwrap()
+
     setName('')
     setEmail('')
     setPhone('')

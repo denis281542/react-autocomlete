@@ -1,6 +1,8 @@
 import './App.css';
-import { InputStreet } from './features/street/InputStreet';
+import { Address } from './features/address/Address';
 import { InputsAutomplete } from './features/autocomplete/InputsAutomplete';
+import { User } from './features/users/Users';
+import { UsersList } from './features/users/UsersList';
 
 function App() {
   // const [street, setStreet] = useState('')
@@ -127,6 +129,21 @@ function App() {
   return (
     <div>
        <InputsAutomplete />
+       <Address />
+       <User />
+       {/* <UsersList /> */}
+
+
+
+
+
+
+
+
+
+
+
+       
        {/* <InputStreet /> */}
 
       {/* <div>
