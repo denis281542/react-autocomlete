@@ -55,7 +55,7 @@ export const usersSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(postUser.fulfilled, (state, action) => {
           const {id} = action.payload
-          state.users.push(id)
+        //   state.users.push(id)
         })
         builder.addCase(removeUser.fulfilled, state => {
           state.id = null
