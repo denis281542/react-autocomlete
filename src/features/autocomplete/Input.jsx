@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { getAddress } from '../address/addressSlice';
+import { clearUsers, fetchUsers } from '../users/userSlice';
 
-
-export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, fetchNext, clearHouse, clearFlat, selectStatus, getAddressId}) => {
+export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, fetchNext, clearHouse, clearFlat, selectStatus, getAddressId, address}) => {
     const dispatch = useDispatch()
     const names = useSelector(selectAll)
     const [name, setName] = useState('')
@@ -33,7 +32,12 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
                         setName(name.name)
                         setActive(false)
                         dispatch(fetchNext(name.id))
-                        if(getAddressId) dispatch(getAddressId(name.id));
+                        dispatch(address(name.name))
+                        if(getAddressId) {
+                            dispatch(clearUsers())
+                            dispatch(getAddressId(name.id))
+                            dispatch(fetchUsers(name.id))
+                        }
                     }}
                 >{name.name}</li>
             )
@@ -54,7 +58,6 @@ export const Input = ({htmlFor, label, id, type, placeholder, selectAll, fetch, 
 
     return(
         <div className="city">
-            {/* {subject || ''} */}
             <label htmlFor={htmlFor}>{label}</label>
             <input 
                 id={id} 

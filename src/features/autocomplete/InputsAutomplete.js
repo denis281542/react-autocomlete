@@ -4,7 +4,8 @@ import { ModalWindow } from '../modal/ModalWindow'
 import { fetchStreets, selectAllStreet, selectStatusStreets, getStreet } from '../street/streetsSlice';
 import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '../houses/housesSlice';
 import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';
-import { getAddressId } from '../address/addressSlice';
+import { addressFlat, addressHouse, addressStreet, getAddressId } from '../address/addressSlice';
+import { useSelector } from 'react-redux';
 
 export const InputsAutomplete = () => { 
     return (
@@ -21,6 +22,7 @@ export const InputsAutomplete = () => {
                 fetchNext={fetchHouses}
                 clearHouse={clearHouses}        
                 clearFlat={clearFlats}        
+                address={addressStreet}        
             /> 
 
             <Input 
@@ -34,6 +36,7 @@ export const InputsAutomplete = () => {
                 fetch={fetchHouses}  
                 fetchNext={fetchFlats}  
                 clearFlat={clearFlats}     
+                address={addressHouse}        
             />
 
             <Input 
@@ -47,10 +50,9 @@ export const InputsAutomplete = () => {
                 fetch={fetchFlats}  
                 fetchNext={fetchFlats} 
                 getAddressId={getAddressId} 
+                address={addressFlat}        
             /> 
 
-
-            
             <ModalWindow />
 
         </div>

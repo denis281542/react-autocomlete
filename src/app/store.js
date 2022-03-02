@@ -3,7 +3,7 @@ import streetsReducer from '../features/street/streetsSlice';
 import housesReducer from '../features/houses/housesSlice';
 import flatsReducer from '../features/flats/flatsSlice';
 import addressReducer from '../features/address/addressSlice';
-import userReducer from '../features/user/userSlice';
+import usersReducer from '../features/users/userSlice';
 
 export default configureStore({
     reducer: {
@@ -11,6 +11,6 @@ export default configureStore({
         houses: housesReducer,
         flats: flatsReducer,
         address: addressReducer,
-        user: userReducer,
+        users: usersReducer,
     }
 })
