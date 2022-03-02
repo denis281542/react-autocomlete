@@ -65,7 +65,7 @@ export const ModalWindow = () => {
   }
 
   const onChangeName = (e) => {
-    setName(e.target.value);
+    setName(e.target.value); 
   }
 
   const onChangeEmail = (e) => {
