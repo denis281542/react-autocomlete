@@ -8,6 +8,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from "@mui/material"; 
 import { removeUser } from "./userSlice";
+import { EditWindow } from "../modal/EditWindow";
 
 export const User = () => {
     const users = useSelector(state => state.users)
@@ -21,6 +22,7 @@ export const User = () => {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     return(
         <Box sx={{display: 'flex', width: '80vw', margin:' 0 auto', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
@@ -37,7 +39,9 @@ export const User = () => {
                             <Box sx={{ borderTop: '1px solid black', borderRadius: '0px 0px 9px 9px', borderColor: 'grey.500', display: 'flex', justifyContent: 'space-evenly', padding: '7px', backgroundColor: '#ccc' }}>
                                 <Button
                                     onClick={handleOpen}
-                                ><EditIcon /></Button>
+                                ><EditIcon />
+                                </Button>
+
                                 <Button
                                     onClick={deleteUser}
                                 ><DeleteOutlineIcon /></Button>
@@ -46,6 +50,10 @@ export const User = () => {
                     </Box>
                 )
             })}
+            <EditWindow
+                open={open}
+                handleClose={handleClose}
+            />
         </Box>        
     )
 }

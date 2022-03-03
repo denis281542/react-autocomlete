@@ -6,8 +6,11 @@ import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '..
 import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';
 import { addressFlat, addressHouse, addressStreet, getAddressId } from '../address/addressSlice';
 import { useSelector } from 'react-redux';
+import { ModalOpenButton } from '../modal/ModalOpenButton';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 
-export const InputsAutomplete = () => { 
+
+export const InputsAutomplete = ({handleOpen}) => { 
     return (
         <div className="card">
             <Input 
@@ -53,7 +56,13 @@ export const InputsAutomplete = () => {
                 address={addressFlat}        
             /> 
 
-            <ModalWindow />
+            <ModalWindow 
+                openButton={<ModalOpenButton 
+                    handleOpen={handleOpen}
+                    buttonText='Добавить жильца'
+                    icon={<PersonAddAltOutlinedIcon/>}
+                />}
+            ></ModalWindow>
 
         </div>
     );

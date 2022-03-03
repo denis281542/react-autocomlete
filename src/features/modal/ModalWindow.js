@@ -101,7 +101,7 @@ export const ModalWindow = () => {
                       name='phone'
                       required={true}
                       onChange={onChange}
-                      // value={val}
+                      value={phone}
                       isValid={() => isPhone(phone)}
                       errorMessageEmpty='Введите номер телефона'                 
                       errorMessageInvalid='Неверный номер телефона'                    
