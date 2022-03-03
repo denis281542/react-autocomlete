@@ -16,7 +16,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { ModalButton } from './ModalButton';
 import { ModalOpenButton } from './ModalOpenButton';
-import { Input } from './Input';
 
 const style = {
     position: 'absolute',
@@ -42,10 +41,6 @@ export const ModalWindow = () => {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch()
 
-  const [val, setVal] = useState({});
-
-
-
   const addressId = useSelector(state => state.address.addressId)
 
   const saveUser = async e => {
@@ -60,7 +55,7 @@ export const ModalWindow = () => {
     setEmail('')
     setPhone('')
 
-    setVal(false)
+    setDirty(false)
     setDirtyName(false)
     setDirtyEmail(false)
 
@@ -89,6 +84,19 @@ export const ModalWindow = () => {
     return name.length >= 2
   }
 
+  const error = (dirty, input, isValid) => {
+    return dirty && input === '' || dirty && !isValid()
+  }
+
+  const helperText = (dirty, input, isValid, error1, error2) => {
+    if(dirty && input === '') {
+      return error1
+    }
+    if(dirty && !isValid()) {
+      return error2
+    }
+  }
+
   return(
     <div>
       <ModalOpenButton 
@@ -113,41 +121,57 @@ export const ModalWindow = () => {
               <CardContent>
                 <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
                   <Grid item xs={12}>
-                    <Input 
-                      label='Номер телефона'
-                      name='phone'
-                      required={true}
+                    <TextField 
+                      id="outlined-basic" 
+                      // type="number"  
+                      required label="Номер телефона" 
+                      variant="outlined" 
+                      autoComplete="off"
                       onChange={onChange}
-                      // value={val}
-                      isValid={isPhone}
-                      errorMessageEmpty='Введите номер телефона'                 
-                      errorMessageInvalid='Неверный номер телефона'                    
+                      value={phone}
+                      onBlur={() => {
+                        setDirty(true)
+                        isPhone()
+                      }}
+                      error={error(dirty, phone, isPhone)}
+                      onFocus={() => setDirty(false)}
+                      helperText={helperText(dirty, phone, isPhone, 'Введите номер телефона', 'Неверный номер телефона')}
                     />
                   </Grid>
                 </Typography>
 
                 <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
                   <Grid item xs={12}>
-                    <Input 
-                      label='ФИО'
+                    <TextField 
+                      id="outlined-basic" 
+                      label="ФИО" 
+                      variant="outlined"
+                      type="text"
+                      autoComplete="off"                      
                       onChange={onChangeName}
                       value={name}
-                      isValid={isName}
-                      errorMessageEmpty='Введите имя'                 
-                      errorMessageInvalid='Короткое имя'                    
+                      onBlur={() => setDirtyName(true)}
+                      error={error(dirtyName, name, isName)}
+                      helperText={helperText(dirtyName, name, isName, 'Введите имя', 'Короткое имя')}
+                      onFocus={() => setDirtyName(false)}
                     />
                   </Grid>
                 </Typography>
 
                 <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
                   <Grid item xs={12}>
-                    <Input
-                      label='Email' 
+                    <TextField 
+                      id="outlined-basic" 
+                      label="Email" 
+                      variant="outlined"
+                      type="email"
+                      autoComplete="off"
                       onChange={onChangeEmail}
                       value={email}
-                      isValid={isEmail}
-                      errorMessageEmpty='Введите email'                 
-                      errorMessageInvalid='Неправильный email'                    
+                      onBlur={() => setDirtyEmail(true)}
+                      error={error(dirtyEmail, email, isEmail)}
+                      helperText={helperText(dirtyEmail, email, isEmail, 'Введите email', 'Неправильный email')}
+                      onFocus={() => setDirtyEmail(false)}
                     />
                   </Grid>
                 </Typography>

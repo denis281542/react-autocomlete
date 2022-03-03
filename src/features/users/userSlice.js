@@ -31,6 +31,27 @@ export const postUser = createAsyncThunk('user/postUser',
     }
 )
 
+export const bindUser = createAsyncThunk('user/postUser', async ({addressId, id}) => {
+        const response =  await fetch('https://dispex.org/api/vtest/HousingStock/bind_client', {
+            method: 'PUT', 
+            mode: 'cors',
+            cache: 'no-cache', 
+            credentials: 'same-origin', 
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer', 
+            body: JSON.stringify({ 
+                AddressId: addressId, 
+                ClientId: id 
+            })
+        })
+        return response.status
+    }  
+)
+
 export const removeUser = createAsyncThunk('user/removeUser',
     async bindId => {
       const res = await fetch(`https://dispex.org/api/vtest/HousingStock/bind_client/${bindId}`, {
@@ -53,10 +74,6 @@ export const usersSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(postUser.fulfilled, (state, action) => {
-          const {id} = action.payload
-        //   state.users.push(id)
-        })
         builder.addCase(removeUser.fulfilled, state => {
           state.id = null
         })
@@ -71,6 +88,10 @@ export const usersSlice = createSlice({
             state.status = 'failed'
             state.error = action.error.message
         })
+
+        // .addCase(bindUser.fulfilled, (state, action) => {
+        //     console.log(action.payload);
+        // })
     }
 })
 

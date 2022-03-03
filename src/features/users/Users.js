@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { Box } from "@mui/material"
+import { useState } from "react"; 
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -17,6 +18,10 @@ export const User = () => {
         dispatch(removeUser(users.id))
     }
 
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+
     return(
         <Box sx={{display: 'flex', width: '80vw', margin:' 0 auto', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
             {users.users.map((user, idx) => {
@@ -30,7 +35,9 @@ export const User = () => {
                             </Box>
 
                             <Box sx={{ borderTop: '1px solid black', borderRadius: '0px 0px 9px 9px', borderColor: 'grey.500', display: 'flex', justifyContent: 'space-evenly', padding: '7px', backgroundColor: '#ccc' }}>
-                                <Button><EditIcon /></Button>
+                                <Button
+                                    onClick={handleOpen}
+                                ><EditIcon /></Button>
                                 <Button
                                     onClick={deleteUser}
                                 ><DeleteOutlineIcon /></Button>
