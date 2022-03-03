@@ -1,15 +1,11 @@
-import * as React from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import Grid from '@mui/material/Grid';
 import CloseIcon from '@mui/icons-material/Close';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { bindUser, postUser, userAdded } from '../users/userSlice';
-
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Card from '@mui/material/Card';
@@ -17,6 +13,7 @@ import CardContent from '@mui/material/CardContent';
 import { ModalButton } from './ModalButton';
 import { ModalOpenButton } from './ModalOpenButton';
 import { Input } from './Input';
+import { isPhone, isEmail, isName } from '../utils';
 
 const style = {
     position: 'absolute',
@@ -42,10 +39,6 @@ export const ModalWindow = () => {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch()
 
-  const [val, setVal] = useState({});
-
-
-
   const addressId = useSelector(state => state.address.addressId)
 
   const saveUser = async e => {
@@ -60,7 +53,7 @@ export const ModalWindow = () => {
     setEmail('')
     setPhone('')
 
-    setVal(false)
+    setDirty(false)
     setDirtyName(false)
     setDirtyEmail(false)
 
@@ -77,16 +70,6 @@ export const ModalWindow = () => {
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
-  }
-
-  const isPhone = () => {
-    return (/\+7\d{3}\d{3}\d{2}\d{2}/.test(phone))
-  }
-  const isEmail = () => {
-    return (/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email))
-  }
-  const isName = () => {
-    return name.length >= 2
   }
 
   return(
@@ -119,7 +102,7 @@ export const ModalWindow = () => {
                       required={true}
                       onChange={onChange}
                       // value={val}
-                      isValid={isPhone}
+                      isValid={() => isPhone(phone)}
                       errorMessageEmpty='Введите номер телефона'                 
                       errorMessageInvalid='Неверный номер телефона'                    
                     />
@@ -132,7 +115,7 @@ export const ModalWindow = () => {
                       label='ФИО'
                       onChange={onChangeName}
                       value={name}
-                      isValid={isName}
+                      isValid={() => isName(name)}
                       errorMessageEmpty='Введите имя'                 
                       errorMessageInvalid='Короткое имя'                    
                     />
@@ -145,7 +128,7 @@ export const ModalWindow = () => {
                       label='Email' 
                       onChange={onChangeEmail}
                       value={email}
-                      isValid={isEmail}
+                      isValid={() => isEmail(email)}
                       errorMessageEmpty='Введите email'                 
                       errorMessageInvalid='Неправильный email'                    
                     />
