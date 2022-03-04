@@ -5,21 +5,33 @@ import { ModalButton } from './ModalButton';
 import { useState } from 'react';
 import { Input } from './Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { isPhone } from '../utils'
-import { userUpdated } from '../users/userSlice';
+import { isPhone, isName } from '../utils'
+import { bindUser, postUser, userUpdated } from '../users/userSlice';
 
 export const EditWindow = ({open, handleClose, userId}) => {
     const user = useSelector(state => state.users.users.find(user => user.id === userId))
     const [phone, setPhone] = useState(user.phone)
     const [name, setName] = useState(user.name)
-    const [emai, setEmail] = useState(user.email)
+    const [email, setEmail] = useState(user.email)
 
     const dispatch = useDispatch()
+    const addressId = useSelector(state => state.address.addressId)
 
-    const editUser = e => {
+    const editUser = async e => {
         e.preventDefault()
 
-        dispatch(userUpdated({ id: userId, phone }))
+        // dispatch(userUpdated({ id: userId, phone }))
+        // dispatch(postUser({ id: userId, name, phone, email, BindId: addressId }))
+        // dispatch(bindUser({ addressId, userId }))
+
+
+        
+        const {id} = await dispatch(postUser({ name, phone, email })).unwrap()
+
+        dispatch(userUpdated({ id: userId, name, phone, email }))
+        dispatch(bindUser( {addressId, id} ))
+
+
         handleClose()
 
     }
@@ -51,6 +63,21 @@ export const EditWindow = ({open, handleClose, userId}) => {
                                 isValid={() => isPhone(phone)}
                                 errorMessageEmpty='Введите номер телефона'                 
                                 errorMessageInvalid='Неверный номер телефона'                    
+                            />
+                        </Grid>
+                    </Typography>
+
+                    <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
+                        <Grid item xs={12}>
+                            <Input
+                                label='ФИО'
+                                name='name'
+                                required={false}
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                                isValid={() => isName(name)}
+                                errorMessageEmpty='Введите имя'                 
+                                errorMessageInvalid='Короткое имя'                    
                             />
                         </Grid>
                     </Typography>

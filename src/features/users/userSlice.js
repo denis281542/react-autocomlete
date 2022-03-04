@@ -15,6 +15,7 @@ export const fetchUsers = createAsyncThunk('user/fetchUsers',
 
 export const postUser = createAsyncThunk('user/postUser',
     async user => {
+        console.log(user);
         const response = await fetch('https://dispex.org/api/vtest/HousingStock/client', {
             method: 'POST', 
             mode: 'cors',
@@ -32,6 +33,7 @@ export const postUser = createAsyncThunk('user/postUser',
 )
 
 export const bindUser = createAsyncThunk('user/postUser', async ({addressId, id}) => {
+    console.log(addressId, id);
         const response =  await fetch('https://dispex.org/api/vtest/HousingStock/bind_client', {
             method: 'PUT', 
             mode: 'cors',
@@ -100,7 +102,7 @@ export const usersSlice = createSlice({
         })
         .addCase(postUser.fulfilled, (state, action) => {
             state.status = 'succeeded'
-            console.log(state.users.users );
+            console.log(state.users );
             console.log(action.payload );
             // state.users.users = state.users.users.push(action.payload)
         })
