@@ -80,8 +80,6 @@ export const usersSlice = createSlice({
                 existingUser.name = name
                 existingUser.phone = phone
                 existingUser.email = email
-                console.log(existingUser.phone);
-
             }
         }
     },
