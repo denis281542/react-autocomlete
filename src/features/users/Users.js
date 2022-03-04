@@ -1,28 +1,36 @@
 import { useSelector, useDispatch } from "react-redux"
 import { Box } from "@mui/material"
-import { useState } from "react"; 
+import { useEffect, useState } from "react"; 
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from "@mui/material"; 
-import { removeUser } from "./userSlice";
+import { fetchUsers, removeUser } from "./userSlice";
 import { EditWindow } from "../modal/EditWindow";
 
 export const User = () => {
     const users = useSelector(state => state.users)
     const dispatch = useDispatch()
 
-
     const deleteUser = () => {
         dispatch(removeUser(users.id))
     }
 
-
     const [open, setOpen] = useState(false);
+    const [id, setId] = useState(null);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const userStatus = useSelector(state => state.users.status)
+    useEffect(() => {
+        if (userStatus === 'idle') {
+          dispatch(fetchUsers())
+        }
+    }, [fetchUsers, dispatch])
+
+    console.log(users);
 
     return(
         <Box sx={{display: 'flex', width: '80vw', margin:' 0 auto', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
@@ -38,7 +46,10 @@ export const User = () => {
 
                             <Box sx={{ borderTop: '1px solid black', borderRadius: '0px 0px 9px 9px', borderColor: 'grey.500', display: 'flex', justifyContent: 'space-evenly', padding: '7px', backgroundColor: '#ccc' }}>
                                 <Button
-                                    onClick={handleOpen}
+                                    onClick={() => {
+                                        setId(user.id);
+                                        setOpen(true)
+                                    }}
                                 ><EditIcon />
                                 </Button>
 
@@ -50,10 +61,14 @@ export const User = () => {
                     </Box>
                 )
             })}
-            <EditWindow
-                open={open}
-                handleClose={handleClose}
-            />
+
+            { open ? (                          
+                <EditWindow
+                    userId={id}
+                    open={open}
+                    handleClose={handleClose}
+                />  
+            ) : null}           
         </Box>        
     )
 }

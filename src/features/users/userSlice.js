@@ -71,6 +71,18 @@ export const usersSlice = createSlice({
         clearUsers(state) {
             state.status = "idle"
             state.users = []
+        },
+        userUpdated(state, action) {
+            const {name, phone, email, id} = action.payload
+            const existingUser = state.users.find(user => user.id === id)
+
+            if(existingUser) {
+                existingUser.name = name
+                existingUser.phone = phone
+                existingUser.email = email
+                console.log(existingUser.phone);
+
+            }
         }
     },
     extraReducers(builder) {
@@ -88,6 +100,12 @@ export const usersSlice = createSlice({
             state.status = 'failed'
             state.error = action.error.message
         })
+        .addCase(postUser.fulfilled, (state, action) => {
+            state.status = 'succeeded'
+            console.log(state.users.users );
+            console.log(action.payload );
+            // state.users.users = state.users.users.push(action.payload)
+        })
 
         // .addCase(bindUser.fulfilled, (state, action) => {
         //     console.log(action.payload);
@@ -95,5 +113,5 @@ export const usersSlice = createSlice({
     }
 })
 
-export const { userAdded, clearUsers } = usersSlice.actions
+export const { userAdded, clearUsers, userUpdated } = usersSlice.actions
 export default usersSlice.reducer

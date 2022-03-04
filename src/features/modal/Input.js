@@ -17,21 +17,23 @@ export const Input = ({type, label, name, required, onChange, value, isValid, er
         }
     }
 
-    return(<TextField 
-            required={required}
-            id="outlined-basic" 
-            type={type}  
-            name={name}  
-            label={label}
-            variant="outlined" 
-            onChange={onChange}
-            value={value}
-            onBlur={() => {
-                setDirty(true)
-                isValid()
-            }}
-            error={error(dirty, value, isValid)}
-            onFocus={() => setDirty(false)}
-            helperText={helperText(dirty, value, isValid, errorMessageEmpty, errorMessageInvalid)}
-    />)
+    return(
+      <TextField 
+        required={required}
+        id="outlined-basic" 
+        type={type}  
+        name={name}  
+        label={label}
+        variant="outlined" 
+        onChange={onChange}
+        value={value}
+        onBlur={() => {
+            setDirty(true)
+            isValid()
+        }}
+        error={error(dirty, value, isValid)}
+        onFocus={() => setDirty(false)}
+        helperText={helperText(dirty, value, isValid, errorMessageEmpty, errorMessageInvalid)}
+      />
+    )
 }

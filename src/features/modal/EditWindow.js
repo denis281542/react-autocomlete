@@ -1,11 +1,29 @@
-import { Box, Button, Card } from '@mui/material';
+import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
 import { ModalButton } from './ModalButton';
 import { useState } from 'react';
+import { Input } from './Input';
+import { useDispatch, useSelector } from 'react-redux';
+import { isPhone } from '../utils'
+import { userUpdated } from '../users/userSlice';
 
-export const EditWindow = ({open, handleClose}) => {
+export const EditWindow = ({open, handleClose, userId}) => {
+    const user = useSelector(state => state.users.users.find(user => user.id === userId))
+    const [phone, setPhone] = useState(user.phone)
+    const [name, setName] = useState(user.name)
+    const [emai, setEmail] = useState(user.email)
 
+    const dispatch = useDispatch()
+
+    const editUser = e => {
+        e.preventDefault()
+
+        dispatch(userUpdated({ id: userId, phone }))
+        handleClose()
+
+    }
+    
     return (
         <Modal
             open={open}
@@ -21,23 +39,23 @@ export const EditWindow = ({open, handleClose}) => {
             ><CloseIcon /></Button>
 
             <Card sx={{padding: '60px'}}>
-                {/* <CardContent>
+                <CardContent>
                     <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
-                    <Grid item xs={12}>
-                        <Input 
-                        label='Номер телефона'
-                        name='phone'
-                        required={true}
-                        onChange={onChange}
-                        value={phone}
-                        isValid={() => isPhone(phone)}
-                        errorMessageEmpty='Введите номер телефона'                 
-                        errorMessageInvalid='Неверный номер телефона'                    
-                        />
-                    </Grid>
+                        <Grid item xs={12}>
+                            <Input
+                                label='Номер телефона'
+                                name='phone'
+                                required={true}
+                                value={phone}
+                                onChange={e => setPhone(e.target.value)}
+                                isValid={() => isPhone(phone)}
+                                errorMessageEmpty='Введите номер телефона'                 
+                                errorMessageInvalid='Неверный номер телефона'                    
+                            />
+                        </Grid>
                     </Typography>
 
-                    <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
+                    {/* <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
                     <Grid item xs={12}>
                         <Input 
                         label='ФИО'
@@ -61,13 +79,13 @@ export const EditWindow = ({open, handleClose}) => {
                         errorMessageInvalid='Неправильный email'                    
                         />
                     </Grid>
-                    </Typography>
+                    </Typography> */}
 
-                </CardContent> */}
+                </CardContent>
 
                 <ModalButton 
-                    // onClick={bindUser}
-                    ButtonText='Добавить жильца'
+                    onClick={editUser}
+                    ButtonText='Сохранить'
                 />
             </Card>
             </Box>
