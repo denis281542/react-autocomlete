@@ -102,9 +102,12 @@ export const usersSlice = createSlice({
         })
         .addCase(postUser.fulfilled, (state, action) => {
             state.status = 'succeeded'
-            console.log(state.users );
-            console.log(action.payload );
-            // state.users.users = state.users.users.push(action.payload)
+            const {id} = action.payload 
+            const existingUser = state.users.find(user => user.id === id)
+
+            if(existingUser) {
+                existingUser.id = id
+            }
         })
 
         // .addCase(bindUser.fulfilled, (state, action) => {

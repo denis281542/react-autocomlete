@@ -7,7 +7,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from "@mui/material"; 
-import { fetchUsers, removeUser } from "./userSlice";
+import { removeUser } from "./userSlice";
 import { EditWindow } from "../modal/EditWindow";
 
 export const User = () => {
@@ -20,17 +20,8 @@ export const User = () => {
 
     const [open, setOpen] = useState(false);
     const [id, setId] = useState(null);
-    const handleOpen = () => setOpen(true);
+    
     const handleClose = () => setOpen(false);
-
-    const userStatus = useSelector(state => state.users.status)
-    useEffect(() => {
-        if (userStatus === 'idle') {
-          dispatch(fetchUsers())
-        }
-    }, [fetchUsers, dispatch])
-
-    console.log(users);
 
     return(
         <Box sx={{display: 'flex', width: '80vw', margin:' 0 auto', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>

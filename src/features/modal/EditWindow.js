@@ -5,7 +5,7 @@ import { ModalButton } from './ModalButton';
 import { useState } from 'react';
 import { Input } from './Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { isPhone, isName } from '../utils'
+import { isPhone, isName, isEmail } from '../utils'
 import { bindUser, postUser, userUpdated } from '../users/userSlice';
 
 export const EditWindow = ({open, handleClose, userId}) => {
@@ -19,21 +19,12 @@ export const EditWindow = ({open, handleClose, userId}) => {
 
     const editUser = async e => {
         e.preventDefault()
-
-        // dispatch(userUpdated({ id: userId, phone }))
-        // dispatch(postUser({ id: userId, name, phone, email, BindId: addressId }))
-        // dispatch(bindUser({ addressId, userId }))
-
-
         
         const {id} = await dispatch(postUser({ name, phone, email })).unwrap()
-
         dispatch(userUpdated({ id: userId, name, phone, email }))
         dispatch(bindUser( {addressId, id} ))
 
-
         handleClose()
-
     }
     
     return (
@@ -82,31 +73,20 @@ export const EditWindow = ({open, handleClose, userId}) => {
                         </Grid>
                     </Typography>
 
-                    {/* <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
-                    <Grid item xs={12}>
-                        <Input 
-                        label='ФИО'
-                        onChange={onChangeName}
-                        value={name}
-                        isValid={() => isName(name)}
-                        errorMessageEmpty='Введите имя'                 
-                        errorMessageInvalid='Короткое имя'                    
-                        />
-                    </Grid>
-                    </Typography>
-
                     <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
-                    <Grid item xs={12}>
-                        <Input
-                        label='Email' 
-                        onChange={onChangeEmail}
-                        value={email}
-                        isValid={() => isEmail(email)}
-                        errorMessageEmpty='Введите email'                 
-                        errorMessageInvalid='Неправильный email'                    
-                        />
-                    </Grid>
-                    </Typography> */}
+                        <Grid item xs={12}>
+                            <Input
+                                label='Email'
+                                name='email'
+                                required={false}
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                isValid={() => isEmail(email)}
+                                errorMessageEmpty='Введите email'                 
+                                errorMessageInvalid='Неправильный email'                    
+                            />
+                        </Grid>
+                    </Typography>
 
                 </CardContent>
 
