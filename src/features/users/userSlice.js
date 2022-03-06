@@ -30,7 +30,7 @@ export const postUser = createAsyncThunk('user/postUser',
         });
         return await response.json()
     } 
-) 
+)    
 
 export const bindUser = createAsyncThunk('user/postUser', async ({addressId, id}) => {
     console.log(addressId, id);
