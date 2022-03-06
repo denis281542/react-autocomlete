@@ -15,7 +15,6 @@ export const fetchUsers = createAsyncThunk('user/fetchUsers',
 
 export const postUser = createAsyncThunk('user/postUser',
     async user => {
-        console.log(user);
         const response = await fetch('https://dispex.org/api/vtest/HousingStock/client', {
             method: 'POST', 
             mode: 'cors',
@@ -28,13 +27,12 @@ export const postUser = createAsyncThunk('user/postUser',
             referrerPolicy: 'no-referrer', 
             body: JSON.stringify(user)
         });
-        return await response.json()
+        return { user, response: await response.json() }
     } 
 )    
 
-export const bindUser = createAsyncThunk('user/postUser', async ({addressId, id}) => {
-    console.log(addressId, id);
-        const response =  await fetch('https://dispex.org/api/vtest/HousingStock/bind_client', {
+export const bindUser = createAsyncThunk('user/bindUser', async ({addressId, clientId}) => {
+        await fetch('https://dispex.org/api/vtest/HousingStock/bind_client', {
             method: 'PUT', 
             mode: 'cors',
             cache: 'no-cache', 
@@ -47,10 +45,10 @@ export const bindUser = createAsyncThunk('user/postUser', async ({addressId, id}
             referrerPolicy: 'no-referrer', 
             body: JSON.stringify({ 
                 AddressId: addressId, 
-                ClientId: id 
+                ClientId: clientId 
             })
         })
-        return response.status
+        return {addressId, clientId}
     }  
 )
 
@@ -102,17 +100,28 @@ export const usersSlice = createSlice({
         })
         .addCase(postUser.fulfilled, (state, action) => {
             state.status = 'succeeded'
-            const {id} = action.payload 
-            const existingUser = state.users.find(user => user.id === id)
+            const {user, response} = action.payload
+            state.users.push({
+                name: user.name,
+                phone: user.phone,
+                email: user.email,
+                id: response.id
+            })
 
-            if(existingUser) {
-                existingUser.id = id
-            }
+
+            // const {id} = action.payload 
+            // const existingUser = state.users.find(user => user.id === response.id)
+
+            // if(existingUser) {
+            //     existingUser.id = response.id
+            // }
         })
 
-        // .addCase(bindUser.fulfilled, (state, action) => {
-        //     console.log(action.payload);
-        // })
+        .addCase(bindUser.fulfilled, (state, action) => {
+            const { addressId, clientId } = action.payload
+            const user = state.users.find(user => user.id === clientId)
+            user.bindId = addressId
+        })
     }
 })
 

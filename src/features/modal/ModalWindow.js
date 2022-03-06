@@ -40,14 +40,16 @@ export const ModalWindow = () => {
   const dispatch = useDispatch()
 
   const addressId = useSelector(state => state.address.addressId)
+  const userId = useSelector(state => state.users.id)
 
   const saveUser = async e => {
     e.preventDefault()
 
-    const {id} = await  dispatch(postUser({ name, phone, email })).unwrap()
+    const { response } = await dispatch(postUser({ name, phone, email })).unwrap()
+    const clientId = response.id
 
-    dispatch(userAdded({ phone, name, email, id }))
-    dispatch(bindUser( {addressId, id} ))
+    // dispatch(userAdded({ phone, name, email, id }))
+    dispatch(bindUser( {addressId, clientId} ))
 
     setName('')
     setEmail('')
