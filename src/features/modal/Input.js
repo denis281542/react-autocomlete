@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
-export const Input = ({type, label, name, required, onChange, value, isValid, errorMessageEmpty, errorMessageInvalid}) => {
+export const Input = ({type, label, name, required, onChange, value, isValid, errorMessageEmpty, errorMessageInvalid, disabled}) => {
     const [dirty, setDirty] = useState(false);
 
     const error = (dirty, input, isValid) => {
@@ -22,7 +22,8 @@ export const Input = ({type, label, name, required, onChange, value, isValid, er
         required={required}
         id="outlined-basic" 
         type={type}  
-        name={name}  
+        name={name}
+        disabled={disabled}  
         label={label}
         variant="outlined" 
         onChange={onChange}

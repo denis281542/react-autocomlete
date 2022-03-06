@@ -55,11 +55,11 @@ export const bindUser = createAsyncThunk('user/postUser', async ({addressId, id}
 )
 
 export const removeUser = createAsyncThunk('user/removeUser',
-    async bindId => {
-      const res = await fetch(`https://dispex.org/api/vtest/HousingStock/bind_client/${bindId}`, {
+    async user => {
+      await fetch(`https://dispex.org/api/vtest/HousingStock/bind_client/${user.bindId}`, {
         method: 'DELETE'
       })
-      return res.status
+      return user.userId
     }
 )
 
@@ -86,9 +86,9 @@ export const usersSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(removeUser.fulfilled, state => {
-          state.id = null
-        })
+        builder.addCase(removeUser.fulfilled, (state, action) => {
+            state.users = state.users.filter(user => user.id != action.payload)
+        })        
         .addCase(fetchUsers.pending, state => {
             state.status = 'loading'
         })

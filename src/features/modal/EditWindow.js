@@ -49,6 +49,7 @@ export const EditWindow = ({open, handleClose, userId}) => {
                                 label='Номер телефона'
                                 name='phone'
                                 required={true}
+                                disabled={true}
                                 value={phone}
                                 onChange={e => setPhone(e.target.value)}
                                 isValid={() => isPhone(phone)}

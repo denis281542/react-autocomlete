@@ -7,20 +7,29 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from "@mui/material"; 
-import { removeUser } from "./userSlice";
+import { clearUsers, fetchUsers, removeUser } from "./userSlice";
 import { EditWindow } from "../modal/EditWindow";
 
 export const User = () => {
     const users = useSelector(state => state.users)
-    const dispatch = useDispatch()
+    const status = useSelector(state => state.users.status)
 
-    const deleteUser = () => {
-        dispatch(removeUser(users.id))
+    const dispatch = useDispatch()
+    const addressId = useSelector(state => state.address.addressId)
+
+
+    // useEffect(() => {
+    //     //   dispatch(fetchUsers(addressId))
+    //     console.log('ads');
+    //   }, [status, dispatch])
+
+    const deleteUser = (bindId, userId) => {
+        dispatch(removeUser({bindId, userId}))
     }
 
     const [open, setOpen] = useState(false);
     const [id, setId] = useState(null);
-    
+
     const handleClose = () => setOpen(false);
 
     return(
@@ -45,7 +54,7 @@ export const User = () => {
                                 </Button>
 
                                 <Button
-                                    onClick={deleteUser}
+                                    onClick={() => deleteUser(user.bindId, user.id)}
                                 ><DeleteOutlineIcon /></Button>
                             </Box>
                         </Box> 
