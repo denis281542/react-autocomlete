@@ -29,8 +29,8 @@ export const postUser = createAsyncThunk('user/postUser',
             body: JSON.stringify(user)
         });
         return await response.json()
-    }
-)
+    } 
+) 
 
 export const bindUser = createAsyncThunk('user/postUser', async ({addressId, id}) => {
     console.log(addressId, id);
