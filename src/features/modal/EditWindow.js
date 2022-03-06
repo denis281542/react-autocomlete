@@ -19,6 +19,8 @@ export const EditWindow = ({open, handleClose, userId}) => {
 
     const editUser = async e => {
         e.preventDefault()
+
+        //Сделать редактирование
         
         const {id} = await dispatch(postUser({ name, phone, email })).unwrap()
         dispatch(userUpdated({ id: userId, name, phone, email }))
