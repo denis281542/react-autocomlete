@@ -48,7 +48,6 @@ export const ModalWindow = () => {
     const { response } = await dispatch(postUser({ name, phone, email })).unwrap()
     const clientId = response.id
 
-    // dispatch(userAdded({ phone, name, email, id }))
     dispatch(bindUser( {addressId, clientId} ))
 
     setName('')

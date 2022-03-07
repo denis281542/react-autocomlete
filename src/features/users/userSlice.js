@@ -29,6 +29,24 @@ export const postUser = createAsyncThunk('user/postUser',
         });
         return { user, response: await response.json() }
     } 
+)
+
+export const updateUser = createAsyncThunk('user/updateUser',
+    async user => {
+        const response = await fetch('https://dispex.org/api/vtest/HousingStock/client', {
+            method: 'POST', 
+            mode: 'cors',
+            cache: 'no-cache', 
+            credentials: 'same-origin', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer', 
+            body: JSON.stringify(user)
+        });
+        return { user, response: await response.json() }
+    } 
 )    
 
 export const bindUser = createAsyncThunk('user/bindUser', async ({addressId, clientId}) => {
@@ -65,9 +83,6 @@ export const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        userAdded(state, action) {
-            state.users.push(action.payload)
-        },
         clearUsers(state) {
             state.status = "idle"
             state.users = []
@@ -101,22 +116,25 @@ export const usersSlice = createSlice({
         .addCase(postUser.fulfilled, (state, action) => {
             state.status = 'succeeded'
             const {user, response} = action.payload
+            
             state.users.push({
                 name: user.name,
                 phone: user.phone,
                 email: user.email,
                 id: response.id
             })
-
-
-            // const {id} = action.payload 
-            // const existingUser = state.users.find(user => user.id === response.id)
-
-            // if(existingUser) {
-            //     existingUser.id = response.id
-            // }
         })
+        .addCase(updateUser.fulfilled, (state, action) => {
+            state.status = 'succeeded'
+            const {user, response} = action.payload
 
+            const existingUser = state.users.find(user => user.id === response.id)
+            if (existingUser) {
+                existingUser.name = user.name
+                existingUser.phone = user.phone
+                existingUser.email = user.email
+            }
+        })
         .addCase(bindUser.fulfilled, (state, action) => {
             const { addressId, clientId } = action.payload
             const user = state.users.find(user => user.id === clientId)
@@ -125,5 +143,5 @@ export const usersSlice = createSlice({
     }
 })
 
-export const { userAdded, clearUsers, userUpdated } = usersSlice.actions
+export const { clearUsers, userUpdated } = usersSlice.actions
 export default usersSlice.reducer

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Input } from './Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { isPhone, isName, isEmail } from '../utils'
-import { bindUser, postUser, userUpdated } from '../users/userSlice';
+import { updateUser, postUser } from '../users/userSlice';
 
 export const EditWindow = ({open, handleClose, userId}) => {
     const user = useSelector(state => state.users.users.find(user => user.id === userId))
@@ -19,13 +19,7 @@ export const EditWindow = ({open, handleClose, userId}) => {
 
     const editUser = async e => {
         e.preventDefault()
-
-        //Сделать редактирование
-        
-        const {id} = await dispatch(postUser({ name, phone, email })).unwrap()
-        dispatch(userUpdated({ id: userId, name, phone, email }))
-        dispatch(bindUser( {addressId, id} ))
-
+        dispatch(updateUser({ name, phone, email }))
         handleClose()
     }
     
