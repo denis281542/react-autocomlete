@@ -13,15 +13,15 @@ import { EditWindow } from "../modal/EditWindow";
 export const User = () => {
     const users = useSelector(state => state.users)
     const status = useSelector(state => state.users.status)
+    const [disabled, setDisabled] = useState(false)
+    const [disabledDeleteBtn, setDisabledDeleteBtn] = useState(false)
 
     const dispatch = useDispatch()
-    const addressId = useSelector(state => state.address.addressId)
 
-
-    // useEffect(() => {
-    //     //   dispatch(fetchUsers(addressId))
-    //     console.log('ads');
-    //   }, [status, dispatch])
+    useEffect(() => {
+        status === 'loading' ? setDisabled(true) : setDisabled(false)
+        status === 'removing' ? setDisabledDeleteBtn(true) : setDisabledDeleteBtn(false)
+      }, [status, dispatch])
 
     const deleteUser = (bindId, userId) => {
         dispatch(removeUser({bindId, userId}))
@@ -46,6 +46,7 @@ export const User = () => {
 
                             <Box sx={{ borderTop: '1px solid black', borderRadius: '0px 0px 9px 9px', borderColor: 'grey.500', display: 'flex', justifyContent: 'space-evenly', padding: '7px', backgroundColor: '#ccc' }}>
                                 <Button
+                                    disabled={disabled}
                                     onClick={() => {
                                         setId(user.id);
                                         setOpen(true)
@@ -54,6 +55,7 @@ export const User = () => {
                                 </Button>
 
                                 <Button
+                                    disabled={disabledDeleteBtn}
                                     onClick={() => deleteUser(user.bindId, user.id)}
                                 ><DeleteOutlineIcon /></Button>
                             </Box>

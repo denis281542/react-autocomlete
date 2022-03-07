@@ -99,7 +99,11 @@ export const usersSlice = createSlice({
         }
     },
     extraReducers(builder) {
+        builder.addCase(removeUser.pending, (state, action) => {
+            state.status = 'removing'
+        })        
         builder.addCase(removeUser.fulfilled, (state, action) => {
+            state.status = 'removed'
             state.users = state.users.filter(user => user.id != action.payload)
         })        
         .addCase(fetchUsers.pending, state => {
@@ -113,16 +117,23 @@ export const usersSlice = createSlice({
             state.status = 'failed'
             state.error = action.error.message
         })
+        .addCase(postUser.pending, (state, action) => {
+            state.status = 'creation'
+        })
         .addCase(postUser.fulfilled, (state, action) => {
             state.status = 'succeeded'
             const {user, response} = action.payload
-            
-            state.users.push({
+
+            state.users.unshift({
                 name: user.name,
                 phone: user.phone,
                 email: user.email,
                 id: response.id
             })
+        })
+        .addCase(updateUser.pending, (state, action) => {
+            state.status = 'loading'
+            // console.log(action.payload);
         })
         .addCase(updateUser.fulfilled, (state, action) => {
             state.status = 'succeeded'

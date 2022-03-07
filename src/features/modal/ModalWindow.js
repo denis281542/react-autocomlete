@@ -35,6 +35,7 @@ export const ModalWindow = () => {
   const [dirty, setDirty] = useState(false);
   const [dirtyName, setDirtyName] = useState(false);
   const [dirtyEmail, setDirtyEmail] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch()
@@ -44,6 +45,7 @@ export const ModalWindow = () => {
 
   const saveUser = async e => {
     e.preventDefault()
+    setOpen(false)
 
     const { response } = await dispatch(postUser({ name, phone, email })).unwrap()
     const clientId = response.id
@@ -57,11 +59,10 @@ export const ModalWindow = () => {
     setDirty(false)
     setDirtyName(false)
     setDirtyEmail(false)
-
-    setOpen(false)
   }
 
   const onChange = (e) => {
+    setDisabledBtn(false)
     setPhone(e.target.value)
   }
 
@@ -141,6 +142,7 @@ export const ModalWindow = () => {
               <ModalButton 
                 onClick={saveUser}
                 ButtonText='Добавить жильца'
+                disabled={!(isPhone(phone) && isEmail(email) && isName(name))}
               />
           </Card>
         </Box>

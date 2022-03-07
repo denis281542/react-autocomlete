@@ -26,7 +26,7 @@ const streetsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-          .addCase(fetchStreets.pending, (state, action) => {
+          .addCase(fetchStreets.pending, state => {
             state.status = 'loading'
           })
           .addCase(fetchStreets.fulfilled, (state, action) => {

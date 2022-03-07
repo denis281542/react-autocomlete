@@ -5,7 +5,10 @@ export const Input = ({type, label, name, required, onChange, value, isValid, er
     const [dirty, setDirty] = useState(false);
 
     const error = (dirty, input, isValid) => {
-        return dirty && input === '' || dirty && !isValid()
+        if(dirty && input === '' || dirty && !isValid()) {
+          return true
+        }
+        // return dirty && input === '' || dirty && !isValid()
     }
 
     const helperText = (dirty, input, isValid, error1, error2) => {
@@ -29,8 +32,8 @@ export const Input = ({type, label, name, required, onChange, value, isValid, er
         onChange={onChange}
         value={value}
         onBlur={() => {
-            setDirty(true)
-            isValid()
+          setDirty(true)
+          isValid()
         }}
         error={error(dirty, value, isValid)}
         onFocus={() => setDirty(false)}
