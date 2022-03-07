@@ -99,7 +99,7 @@ export const ModalWindow = () => {
                 <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
                   <Grid item xs={12}>
                     <Input 
-                      label='Номер телефона'
+                      label='Номер телефона. +79091234567'
                       name='phone'
                       required={true}
                       onChange={onChange}
