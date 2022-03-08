@@ -48,9 +48,8 @@ export const User = () => {
 
                             <Box sx={{ borderTop: '1px solid black', borderRadius: '0px 0px 9px 9px', borderColor: 'grey.500', display: 'flex', justifyContent: 'space-evenly', padding: '7px', backgroundColor: '#ccc' }}>
                                 <Button
-                                    disabled={user.id === disableId}
+                                    disabled={disabled}
                                     onClick={() => {
-                                        setDisableId(user.id)
                                         setId(user.id);
                                         setOpen(true)
                                     }}
