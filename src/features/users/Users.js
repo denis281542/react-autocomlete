@@ -13,15 +13,14 @@ import { EditWindow } from "../modal/EditWindow";
 export const User = () => {
     const users = useSelector(state => state.users)
     const status = useSelector(state => state.users.status)
-    const [disabled, setDisabled] = useState(false)
-    const [disabledDeleteBtn, setDisabledDeleteBtn] = useState(false)
     const [disableId, setDisableId] = useState(0)
+    const [disableEdit, setDisableEdit] = useState(0)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        status === 'loading' ? setDisabled(true) : setDisabled(false)
-        status === 'removing' ? setDisabledDeleteBtn(true) : setDisabledDeleteBtn(false)
+        status === 'loading' ? setDisableEdit(true) : setDisableEdit(false)
+        status === 'removing' ? setDisableId(true) : setDisableId(false)
       }, [status, dispatch])
 
     const deleteUser = (bindId, userId) => {
@@ -48,9 +47,10 @@ export const User = () => {
 
                             <Box sx={{ borderTop: '1px solid black', borderRadius: '0px 0px 9px 9px', borderColor: 'grey.500', display: 'flex', justifyContent: 'space-evenly', padding: '7px', backgroundColor: '#ccc' }}>
                                 <Button
-                                    disabled={disabled}
+                                    disabled={user.id === disableEdit}
                                     onClick={() => {
-                                        setId(user.id);
+                                        setDisableEdit(user.id)
+                                        setId(user.id)
                                         setOpen(true)
                                     }}
                                 ><EditIcon />
@@ -60,8 +60,7 @@ export const User = () => {
                                     disabled={user.id === disableId}
                                     onClick={() => {
                                         setDisableId(user.id)
-                                        deleteUser(user.bindId, user.id)
-                                        
+                                        deleteUser(user.bindId, user.id)                                        
                                     }}
                                 ><DeleteOutlineIcon /></Button>
                             </Box>
