@@ -142,7 +142,7 @@ export const ModalWindow = () => {
               <ModalButton 
                 onClick={saveUser}
                 ButtonText='Добавить жильца'
-                disabled={!(isPhone(phone) && isEmail(email) && isName(name))}
+                // disabled={!(isPhone(phone) && isEmail(email) && isName(name))}
               />
           </Card>
         </Box>

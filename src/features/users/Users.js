@@ -15,6 +15,7 @@ export const User = () => {
     const status = useSelector(state => state.users.status)
     const [disabled, setDisabled] = useState(false)
     const [disabledDeleteBtn, setDisabledDeleteBtn] = useState(false)
+    const [disableId, setDisableId] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -35,6 +36,7 @@ export const User = () => {
     return(
         <Box sx={{display: 'flex', width: '80vw', margin:' 0 auto', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
             {users.users.map((user, idx) => {
+                
                 return(
                     <Box key={idx} sx={{padding: '15px'}}>
                         <Box sx={{ mx: "auto", width: '400px', width: '250px', border: 1, borderRadius: '9px', borderColor: 'grey.500'}}>
@@ -55,8 +57,12 @@ export const User = () => {
                                 </Button>
 
                                 <Button
-                                    disabled={disabledDeleteBtn}
-                                    onClick={() => deleteUser(user.bindId, user.id)}
+                                    disabled={user.id === disableId}
+                                    onClick={() => {
+                                        setDisableId(user.id);
+                                        deleteUser(user.bindId, user.id)
+                                        
+                                    }}
                                 ><DeleteOutlineIcon /></Button>
                             </Box>
                         </Box> 
