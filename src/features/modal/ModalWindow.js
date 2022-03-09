@@ -5,7 +5,7 @@ import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import Grid from '@mui/material/Grid';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
-import { bindUser, postUser, userAdded } from '../users/userSlice';
+import { bindUser, postUser } from '../users/userSlice';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Card from '@mui/material/Card';
@@ -41,7 +41,12 @@ export const ModalWindow = () => {
   const dispatch = useDispatch()
 
   const addressId = useSelector(state => state.address.addressId)
-  const userId = useSelector(state => state.users.id)
+
+
+
+  const status = useSelector(state => state.users.status)
+
+
 
   const saveUser = async e => {
     e.preventDefault()
@@ -77,8 +82,8 @@ export const ModalWindow = () => {
   return(
     <div>
       <ModalOpenButton 
+        disabled={status === 'creation'}
         handleOpen={handleOpen}
-        buttonText='Добавить жильца'
         icon={<PersonAddAltOutlinedIcon/>}
       />
       <Modal

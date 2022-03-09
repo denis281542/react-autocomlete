@@ -1,11 +1,11 @@
 import Button from '@mui/material/Button';
 
-export const ModalOpenButton = ({handleOpen, buttonText, icon}) => {
+export const ModalOpenButton = ({handleOpen, buttonText, icon, disabled}) => {
     return(
         <Button 
+            disabled={disabled}
             onClick={handleOpen}
             variant="contained"
-            sx={{marginTop: '15px'}}
         >{icon}{buttonText}</Button>
     )
 }

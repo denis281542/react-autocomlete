@@ -15,7 +15,6 @@ export const EditWindow = ({open, handleClose, userId}) => {
     const [email, setEmail] = useState(user.email)
 
     const dispatch = useDispatch()
-    const addressId = useSelector(state => state.address.addressId)
 
     const editUser = async e => {
         e.preventDefault()
