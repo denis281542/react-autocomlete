@@ -41,12 +41,7 @@ export const ModalWindow = () => {
   const dispatch = useDispatch()
 
   const addressId = useSelector(state => state.address.addressId)
-
-
-
   const status = useSelector(state => state.users.status)
-
-
 
   const saveUser = async e => {
     e.preventDefault()
@@ -104,7 +99,8 @@ export const ModalWindow = () => {
                 <Typography variant="outlined" component="div" sx={{padding: '10px'}}>
                   <Grid item xs={12}>
                     <Input 
-                      label='Номер телефона. +79091234567'
+                      label='Номер телефона.'
+                      placeholder='Например +79091234567'
                       name='phone'
                       required={true}
                       onChange={onChange}
@@ -147,7 +143,7 @@ export const ModalWindow = () => {
               <ModalButton 
                 onClick={saveUser}
                 ButtonText='Добавить жильца'
-                // disabled={!(isPhone(phone) && isEmail(email) && isName(name))}
+                disabled={!(isPhone(phone) && isEmail(email) && isName(name))}
               />
           </Card>
         </Box>

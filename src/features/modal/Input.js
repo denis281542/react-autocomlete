@@ -1,14 +1,13 @@
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 
-export const Input = ({type, label, name, required, onChange, value, isValid, errorMessageEmpty, errorMessageInvalid, disabled}) => {
+export const Input = ({type, label, name, required, onChange, value, isValid, errorMessageEmpty, errorMessageInvalid, disabled, placeholder}) => {
     const [dirty, setDirty] = useState(false);
 
     const error = (dirty, input, isValid) => {
         if(dirty && input === '' || dirty && !isValid()) {
           return true
         }
-        // return dirty && input === '' || dirty && !isValid()
     }
 
     const helperText = (dirty, input, isValid, error1, error2) => {
@@ -23,6 +22,7 @@ export const Input = ({type, label, name, required, onChange, value, isValid, er
     return(
       <TextField 
         required={required}
+        placeholder={placeholder}
         id="outlined-basic" 
         type={type}  
         name={name}
