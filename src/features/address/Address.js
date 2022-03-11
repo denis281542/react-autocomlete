@@ -2,15 +2,14 @@ import { Box } from "@mui/material"
 import { useSelector } from "react-redux"
 import { User } from "../users/Users"
 import { ModalWindow } from '../modal/ModalWindow'
-import { ModalOpenButton } from '../modal/ModalOpenButton';
-import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 
-export const Address = ({handleOpen}) => {
+export const Address = () => {
     const address = useSelector(state => state.address)
+    const users = useSelector(state => state.users)
 
     return(
         <div>
-            {address.flat 
+            {users.users.length != 0 
                 ? (<Box sx={{padding: '20px'}}>
                         <Box sx={{ mx: "auto", display: "flex", width: '400px', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Box sx={{display: 'flex'}}> 
