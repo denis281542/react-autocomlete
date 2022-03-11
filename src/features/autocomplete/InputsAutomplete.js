@@ -57,7 +57,7 @@ export const InputsAutomplete = () => {
                     onChange={e => house.length > e.target.value.length ? dispatch(clearUsers()) : null}
                     label="Дом" 
                 />}
-            />
+            /> 
             <Autocomplete
                 disablePortal
                 noOptionsText='Совпадения не найдены'
