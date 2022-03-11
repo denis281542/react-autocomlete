@@ -41,23 +41,7 @@ export const InputsAutomplete = () => {
                 sx={{ width: 300, padding: '5px' }}
                 renderInput={(params) => <TextField {...params} label="Улица" />}
             />
-            <Autocomplete
-                disablePortal
-                noOptionsText='Совпадения не найдены'
-                id="combo-box-demo"
-                options={houses}
-                onChange={(event, value) => {
-                    dispatch(addressHouse(value.name))
-                    dispatch(fetchFlats(value.id))
-                }}
-                getOptionLabel={value => value.name}
-                sx={{ width: 300, padding: '5px' }}
-                renderInput={(params) => <TextField {...params} 
-                    onFocus={e => setHouse(e.target.value)} 
-                    onChange={e => house.length > e.target.value.length ? dispatch(clearUsers()) : null}
-                    label="Дом" 
-                />}
-            />
+           
             <Autocomplete
                 disablePortal
                 noOptionsText='Совпадения не найдены'
