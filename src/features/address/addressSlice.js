@@ -18,10 +18,10 @@ const addressSlice = createSlice({
             state.house = action.payload
         },
         addressFlat(state, action) {
-            state.flat = action.payload
-        },
-        getAddressId(state, action) {
-            state.addressId = action.payload
+            console.log(action.payload);
+            const { flat, id } = action.payload
+            state.flat = flat
+            state.addressId = id
         }
     }
 })

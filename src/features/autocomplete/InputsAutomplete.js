@@ -7,64 +7,30 @@ import { addressFlat, addressHouse, addressStreet, getAddressId } from '../addre
 import { Autocomplete, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUsers, fetchUsers } from '../users/userSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Box } from '@mui/system';
 
 export const InputsAutomplete = () => { 
     const streets = useSelector(selectAllStreet)
     const houses = useSelector(selectAllHouse)
     const flats = useSelector(selectAllFlats)
 
-    const [item, setItem ] = useState(null)
-
+    const [house, setHouse ] = useState(null)
+    const [flat, setFlat ] = useState(null)
     const dispatch = useDispatch()
+    const status = useSelector(selectStatusStreets)   
+
+    useEffect(() => {
+        if(status === 'idle') {
+            dispatch(fetchStreets())
+        } 
+    }, [status, dispatch])
 
     return (
-        <div className="card">
-            <Input 
-                htmlFor='street'
-                label='Улица'
-                id='street'
-                type='text'
-                placeholder='Введите удицу'
-                selectAll={selectAllStreet}
-                selectStatus={selectStatusStreets}
-                fetch={fetchStreets}        
-                fetchNext={fetchHouses}
-                clearHouse={clearHouses}        
-                clearFlat={clearFlats}        
-                address={addressStreet}        
-            /> 
-
-            <Input 
-                htmlFor='house'
-                label='Дом'
-                id='house'
-                type='text'
-                placeholder='Введите дом'
-                selectAll={selectAllHouse}
-                selectStatus={selectStatusHouses}
-                fetch={fetchHouses}  
-                fetchNext={fetchFlats}  
-                clearFlat={clearFlats}     
-                address={addressHouse}        
-            />
-
-            <Input 
-                htmlFor='flat'
-                label='Квартира'
-                id='flat'
-                type='text'
-                placeholder='Введите номер квартиры'
-                selectAll={selectAllFlats}
-                selectStatus={selectStatusFlats}
-                fetch={fetchFlats}  
-                fetchNext={fetchFlats} 
-                getAddressId={getAddressId} 
-                address={addressFlat}        
-            /> 
-
+        <Box sx={{display: 'flex', justifyContent: 'center', paddingTop: '50px'}}>
             <Autocomplete
                 disablePortal
+                noOptionsText='Совпадения не найдены'
                 id="combo-box-demo"
                 options={streets}
                 onChange={(event, value) => {
@@ -72,11 +38,12 @@ export const InputsAutomplete = () => {
                     dispatch(addressStreet(value.name))
                 }}
                 getOptionLabel={value => value.name}
-                sx={{ width: 300 }}
+                sx={{ width: 300, padding: '5px' }}
                 renderInput={(params) => <TextField {...params} label="Улица" />}
             />
             <Autocomplete
                 disablePortal
+                noOptionsText='Совпадения не найдены'
                 id="combo-box-demo"
                 options={houses}
                 onChange={(event, value) => {
@@ -84,8 +51,12 @@ export const InputsAutomplete = () => {
                     dispatch(fetchFlats(value.id))
                 }}
                 getOptionLabel={value => value.name}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Дом" />}
+                sx={{ width: 300, padding: '5px' }}
+                renderInput={(params) => <TextField {...params} 
+                    onFocus={e => setHouse(e.target.value)} 
+                    onChange={e => house.length > e.target.value.length ? dispatch(clearUsers()) : null}
+                    label="Дом" 
+                />}
             />
             <Autocomplete
                 disablePortal
@@ -94,20 +65,20 @@ export const InputsAutomplete = () => {
                 options={flats}
                 onChange={(event, value) => {
                     if(value != null) {
-                        dispatch(addressFlat(value.name))
+                        dispatch(addressFlat({flat: value.name, id: value.id}))
                         dispatch(fetchUsers(value.id)) 
                     }}}
                 getOptionLabel={value => value.name}
-                sx={{ width: 300 }}
+                sx={{ width: 300, padding: '5px' }}
                 renderInput={(params) => {
-                    return <TextField {...params} 
-                        onFocus={e => setItem(e.target.value)} 
-                        onChange={e => item.length > e.target.value.length ? dispatch(clearUsers()) : null}
+                    return <TextField {...params}
+                        onFocus={e => setFlat(e.target.value)} 
+                        onChange={e => flat.length > e.target.value.length ? dispatch(clearUsers()) : null}
                         label="Квартива" 
                     />}
                 }
             />
 
-        </div>
+        </Box>
     );
 }
