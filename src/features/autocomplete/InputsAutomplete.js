@@ -15,6 +15,7 @@ export const InputsAutomplete = () => {
     const houses = useSelector(selectAllHouse)
     const flats = useSelector(selectAllFlats)
 
+    const [street, setStreet ] = useState(null)
     const [house, setHouse ] = useState(null)
     const [flat, setFlat ] = useState(null)
     const dispatch = useDispatch()
@@ -28,7 +29,8 @@ export const InputsAutomplete = () => {
 
 
 
-    const [values, setValues] = useState(null)
+    const [houseValue, setHouseValue] = useState(null)
+    const [flatValue, setFlatValue] = useState(null)
 
 
 
@@ -41,20 +43,37 @@ export const InputsAutomplete = () => {
                 noOptionsText='Совпадения не найдены'
                 id="combo-box-demo"
                 options={streets}
-                onChange={(event, value) => {
+                velue={street}
+                onChange={(_, value) => {
+                    setStreet(value.name)
                     dispatch(fetchHouses(value.id))
                     dispatch(addressStreet(value.name))
                 }}
                 getOptionLabel={value => value.name}
                 sx={{ width: 300, padding: '5px' }}
-                renderInput={(params) => <TextField {...params} label="Улица" />}
+                renderInput={(params) => <TextField {...params}
+                    label="Улица" 
+                    onChange={(event, value) => {
+                        if(streets.length > event.target.value.length) {
+                            
+                            setHouseValue(null)
+                            setFlatValue(null)
+                            dispatch(clearUsers())
+                            dispatch(clearHouses())
+                            dispatch(clearFlats())
+                        }
+                    }}
+    
+                />}
             />
             <Autocomplete
                 disablePortal
                 noOptionsText='Совпадения не найдены'
                 id="combo-box-demo"
                 options={houses}
-                onChange={(event, value) => {
+                value={houseValue}
+                onChange={(_, value) => {
+                    setHouseValue(value)
                     if(value != null) {
                         dispatch(addressHouse(value.name))
                         dispatch(fetchFlats(value.id))
@@ -70,7 +89,7 @@ export const InputsAutomplete = () => {
                             setFlat(null)
 
 
-                            setValues(null)
+                            setFlatValue(null)
                             
 
                     }}}
@@ -82,9 +101,9 @@ export const InputsAutomplete = () => {
 
                 options={flats}
                 getOptionLabel={flat => flat.name}
-                value={values}
+                value={flatValue}
                 onChange={(_, value) => {
-                    setValues(value)
+                    setFlatValue(value)
                     if(value != null) {
                         dispatch(addressFlat({flat: value.name, id: value.id}))
                         dispatch(fetchUsers(value.id)) 
