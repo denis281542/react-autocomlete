@@ -18,7 +18,6 @@ const addressSlice = createSlice({
             state.house = action.payload
         },
         addressFlat(state, action) {
-            console.log(action.payload);
             const { flat, id } = action.payload
             state.flat = flat
             state.addressId = id

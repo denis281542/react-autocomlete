@@ -26,6 +26,14 @@ export const InputsAutomplete = () => {
         } 
     }, [status, dispatch])
 
+
+
+    const [values, setValues] = useState(null)
+
+
+
+
+
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', paddingTop: '50px'}}>
             <Autocomplete
@@ -47,34 +55,54 @@ export const InputsAutomplete = () => {
                 id="combo-box-demo"
                 options={houses}
                 onChange={(event, value) => {
-                    dispatch(addressHouse(value.name))
-                    dispatch(fetchFlats(value.id))
-                }}
+                    if(value != null) {
+                        dispatch(addressHouse(value.name))
+                        dispatch(fetchFlats(value.id))
+                }}}
                 getOptionLabel={value => value.name}
                 sx={{ width: 300, padding: '5px' }}
                 renderInput={(params) => <TextField {...params} 
                     onFocus={e => setHouse(e.target.value)} 
-                    onChange={e => house.length > e.target.value.length ? dispatch(clearUsers()) : null}
+                    onChange={e => {
+                        if(house.length > e.target.value.length) {
+                            dispatch(clearUsers())
+                            dispatch(clearFlats())
+                            setFlat(null)
+
+
+                            setValues(null)
+                            
+
+                    }}}
                     label="Дом" 
                 />}
             />
             <Autocomplete
-                disablePortal
-                noOptionsText='Совпадения не найдены'
-                id="combo-box-demo"
+
+
                 options={flats}
-                onChange={(event, value) => {
+                getOptionLabel={flat => flat.name}
+                value={values}
+                onChange={(_, value) => {
+                    setValues(value)
                     if(value != null) {
                         dispatch(addressFlat({flat: value.name, id: value.id}))
                         dispatch(fetchUsers(value.id)) 
-                    }}}
-                getOptionLabel={value => value.name}
+                    }
+                }}
+
+
+
+                disablePortal
+                clearText='Удалить'
+                noOptionsText='Совпадения не найдены'
+                id="combo-box-demo"
                 sx={{ width: 300, padding: '5px' }}
                 renderInput={(params) => {
                     return <TextField {...params}
                         onFocus={e => setFlat(e.target.value)} 
                         onChange={e => flat.length > e.target.value.length ? dispatch(clearUsers()) : null}
-                        label="Квартива" 
+                        label="Квартира" 
                     />}
                 }
             />
