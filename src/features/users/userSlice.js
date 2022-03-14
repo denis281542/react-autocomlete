@@ -133,7 +133,6 @@ export const usersSlice = createSlice({
         })
         .addCase(updateUser.pending, (state, action) => {
             state.status = 'loading'
-            // console.log(action.payload);
         })
         .addCase(updateUser.fulfilled, (state, action) => {
             state.status = 'succeeded'

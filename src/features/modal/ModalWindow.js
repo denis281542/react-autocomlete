@@ -102,6 +102,7 @@ export const ModalWindow = () => {
                       label='Номер телефона.'
                       placeholder='Например +79091234567'
                       name='phone'
+                      type='text'
                       required={true}
                       onChange={onChange}
                       value={phone}
@@ -143,7 +144,7 @@ export const ModalWindow = () => {
               <ModalButton 
                 onClick={saveUser}
                 ButtonText='Добавить жильца'
-                // disabled={!(isPhone(phone) && isEmail(email) && isName(name))}
+                disabled={!(isPhone(phone) && isEmail(email) && isName(name))}
               />
           </Card>
         </Box>

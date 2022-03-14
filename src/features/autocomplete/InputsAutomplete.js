@@ -17,7 +17,10 @@ export const InputsAutomplete = () => {
 
     const [street, setStreet ] = useState(null)
     const [house, setHouse ] = useState(null)
-    const [flat, setFlat ] = useState(null)
+    const [flat, setFlat ] = useState(null)    
+    const [houseValue, setHouseValue] = useState(null)
+    const [flatValue, setFlatValue] = useState(null)
+
     const dispatch = useDispatch()
     const status = useSelector(selectStatusStreets)   
 
@@ -26,15 +29,6 @@ export const InputsAutomplete = () => {
             dispatch(fetchStreets())
         } 
     }, [status, dispatch])
-
-
-
-    const [houseValue, setHouseValue] = useState(null)
-    const [flatValue, setFlatValue] = useState(null)
-
-
-
-
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', paddingTop: '50px'}}>
@@ -54,16 +48,14 @@ export const InputsAutomplete = () => {
                 renderInput={(params) => <TextField {...params}
                     label="Улица" 
                     onChange={(event, value) => {
-                        if(streets.length > event.target.value.length) {
-                            
+                        if(streets.length > event.target.value.length) {                            
                             setHouseValue(null)
                             setFlatValue(null)
                             dispatch(clearUsers())
                             dispatch(clearHouses())
                             dispatch(clearFlats())
                         }
-                    }}
-    
+                    }}    
                 />}
             />
             <Autocomplete
@@ -87,18 +79,12 @@ export const InputsAutomplete = () => {
                             dispatch(clearUsers())
                             dispatch(clearFlats())
                             setFlat(null)
-
-
                             setFlatValue(null)
-                            
-
                     }}}
                     label="Дом" 
                 />}
             />
             <Autocomplete
-
-
                 options={flats}
                 getOptionLabel={flat => flat.name}
                 value={flatValue}
@@ -109,9 +95,6 @@ export const InputsAutomplete = () => {
                         dispatch(fetchUsers(value.id)) 
                     }
                 }}
-
-
-
                 disablePortal
                 clearText='Удалить'
                 noOptionsText='Совпадения не найдены'

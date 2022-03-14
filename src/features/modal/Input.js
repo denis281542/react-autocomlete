@@ -23,6 +23,7 @@ export const Input = ({type, label, name, required, onChange, value, isValid, er
       <TextField 
         required={required}
         placeholder={placeholder}
+        autoComplete="off"
         id="outlined-basic" 
         type={type}  
         name={name}
