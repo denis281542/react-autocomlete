@@ -148,7 +148,6 @@ export const usersSlice = createSlice({
         .addCase(bindUser.fulfilled, (state, action) => {
             const { addressId, clientId } = action.payload
             const user = state.users.find(user => user.id === clientId)
-            // user.bindId = addressId
         })
     }
 })
