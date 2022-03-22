@@ -1,5 +1,5 @@
+import React from 'react';
 import '../../App.css';
-import { Input } from './Input';
 import { fetchStreets, selectAllStreet, selectStatusStreets } from '../street/streetsSlice';
 import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '../houses/housesSlice';
 import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';

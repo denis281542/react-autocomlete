@@ -1,5 +1,6 @@
-import { useSelector, useDispatch } from "react-redux"
-import { Box } from "@mui/material"
+import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react"; 
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
