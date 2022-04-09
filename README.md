@@ -3,6 +3,7 @@
 Пример REST API на React, Redux-toolkit. 
 Протестировать можно <strong><a href="https://dispex.web.app/" target="_blank">тут</a></strong>.</br>
 Адрес для примера нужно выбрать: ул. Федюнинского, д. 30, квартиру можно выбрать любую.</br>
+Запуск: git clone https://github.com/denis281542/react-autocomlete.git, npm init, npm start.</br>
 
 Функционал:
 1. Выбор адреса: Улица -> Дом -> Квартира (возможность поиска)
