@@ -8,8 +8,9 @@ const initialState = {
 }
 
 export const fetchStreets = createAsyncThunk('streets/fetchStreets', async () => {
-    const res = await fetch('https://dispex.org/api/vtest/Request/streets')
-    return await res.json()
+    return await fetch('https://dispex.org/api/vtest/Request/streets')
+        .then(response => response.json())
+        .then(data => data)
 })
 
 const streetsSlice = createSlice({
@@ -31,7 +32,7 @@ const streetsSlice = createSlice({
           })
           .addCase(fetchStreets.fulfilled, (state, action) => {
             state.status = 'succeeded'
-            state.streets = state.streets.concat(action.payload)
+            state.streets =  action.payload          
           })
           .addCase(fetchStreets.rejected, (state, action) => {
             state.status = 'failed'

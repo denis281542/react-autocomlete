@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from "@mui/material"
 import { useSelector } from "react-redux"
-import { User } from "../users/Users"
-import { ModalWindow } from '../modal/ModalWindow'
+import { User } from "./Users"
+import { ModalWindow } from './modal/ModalWindow'
 
 export const Address = () => {
     const address = useSelector(state => state.address)

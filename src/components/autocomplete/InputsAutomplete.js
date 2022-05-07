@@ -1,12 +1,12 @@
 import React from 'react';
 import '../../App.css';
-import { fetchStreets, selectAllStreet, selectStatusStreets } from '../street/streetsSlice';
-import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '../houses/housesSlice';
-import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../flats/flatsSlice';
-import { addressFlat, addressHouse, addressStreet, getAddressId } from '../address/addressSlice';
+import { selectAllStreet, fetchStreets,  selectStatusStreets } from '../../store/reducers/streetsSlice';
+import { clearHouses, fetchHouses, selectAllHouse, selectStatusHouses } from '../../store/reducers/housesSlice';
+import { clearFlats, fetchFlats, selectAllFlats, selectStatusFlats } from '../../store/reducers/flatsSlice';
+import { addressFlat, addressHouse, addressStreet, getAddressId } from '../../store/reducers/addressSlice';
 import { Autocomplete, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearUsers, fetchUsers } from '../users/userSlice';
+import { clearUsers, fetchUsers } from '../../store/reducers/userSlice';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 

@@ -6,7 +6,7 @@ import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import Grid from '@mui/material/Grid';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
-import { bindUser, postUser } from '../users/userSlice';
+import { bindUser, postUser } from '../../store/reducers/userSlice';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Card from '@mui/material/Card';

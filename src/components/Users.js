@@ -8,8 +8,8 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from "@mui/material"; 
-import { clearUsers, fetchUsers, removeUser } from "./userSlice";
-import { EditWindow } from "../modal/EditWindow";
+import { clearUsers, fetchUsers, removeUser } from "../store/reducers/userSlice";
+import { EditWindow } from "./modal/EditWindow";
 
 export const User = () => {
     const dispatch = useDispatch()

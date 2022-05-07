@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import { Address } from './features/address/Address';
-import { InputsAutomplete } from './features/autocomplete/InputsAutomplete';
+import { Address } from './components/Address';
+import { InputsAutomplete } from './components/autocomplete/InputsAutomplete';
 
 function App() {
   return (

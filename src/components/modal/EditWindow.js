@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Input } from './Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { isPhone, isName, isEmail } from '../utils'
-import { updateUser, postUser } from '../users/userSlice';
+import { updateUser } from '../../store/reducers/userSlice';
 
 export const EditWindow = ({open, handleClose, userId}) => {
     const user = useSelector(state => state.users.users.find(user => user.id === userId))

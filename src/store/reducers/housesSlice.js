@@ -7,6 +7,7 @@ const initialState = {
 }
 
 export const fetchHouses = createAsyncThunk('house/fetchHouses', async (id) => {
+  console.log(id);
   const res = await fetch(`https://dispex.org/api/vtest/Request/houses/${id}`)
   return await res.json()
 })
